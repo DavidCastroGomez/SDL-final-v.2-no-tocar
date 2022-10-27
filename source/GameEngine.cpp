@@ -44,14 +44,6 @@ void GameEngine::Quit() {
 	SDL_Quit();
 }
 
-void GameEngine::HandleEvent() {
-	SDL_Event evt;
-
-	while (SDL_PollEvent(&evt)) {
-		isRunning = !(evt.type == SDL_QUIT);
-	}
-}
-
 void GameEngine::Render()
 {
 	//Set the clear color for the renderer
@@ -70,7 +62,8 @@ void GameEngine::Run() {
 	srand(time(NULL));
 	while (isRunning) {
 		//HandleEvents();
-		HandleEvent();
+		IM.Listen();
+		isRunning = IM.GetQuitEvent();
 		//Update();
 
 		//Render();

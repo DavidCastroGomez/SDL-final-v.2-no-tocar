@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include "GameObject.h"
+#include "InputManager.h"
 
 class GameEngine
 {
@@ -16,7 +17,7 @@ private:
 	void InitSDL();
 	void InitWindowAndRenderer();
 
-	void HandleEvent();
+	InputManager IM;
 
 	void Render();
 

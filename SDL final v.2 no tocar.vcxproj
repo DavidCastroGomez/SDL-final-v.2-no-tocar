@@ -185,11 +185,13 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
   <ItemGroup>
     <ClCompile Include="source\GameEngine.cpp" />
     <ClCompile Include="source\GameObject.cpp" />
+    <ClCompile Include="source\InputManager.cpp" />
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\GameObject.h" />
+    <ClInclude Include="source\InputManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
