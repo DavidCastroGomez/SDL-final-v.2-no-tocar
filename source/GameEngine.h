@@ -2,6 +2,9 @@
 #include <SDL.h>
 #include "GameObject.h"
 #include "InputManager.h"
+#include "SceneManager.h"
+#include "SplashSceneScene.h"
+#include "MainMenuScene.h"
 
 class GameEngine
 {
@@ -16,8 +19,6 @@ private:
 
 	void InitSDL();
 	void InitWindowAndRenderer();
-
-	InputManager IM;
 
 	void Render();
 

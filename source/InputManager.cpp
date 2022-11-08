@@ -1,5 +1,14 @@
 #include "InputManager.h"
 
+InputManager* InputManager::instance = nullptr;
+
+InputManager* InputManager::GetInstance() {
+	if (instance == nullptr) {
+		instance = new InputManager();
+	}
+	return instance;
+}
+
 void InputManager::Listen()
 {
 	//Hacer Update de los eventos actuales

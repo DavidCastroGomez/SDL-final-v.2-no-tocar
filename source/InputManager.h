@@ -10,14 +10,17 @@ enum KeyState{
 	RELEASED = 16	//Released
 };
 
+#define IM InputManager::GetInstance()
+
 class InputManager {
 private:
 	std::unordered_map<Sint32, KeyState> keys;
 	int mouseX, mouseY;
 	bool quitEvent;
-
-public:
 	InputManager() : quitEvent(false), mouseX(0), mouseY(0){};
+	static InputManager* instance;
+public:
+	static InputManager* GetInstance();
 	void Listen();
 	bool CheckKeyState(Sint32 key, KeyState state);
 	int GetMouseX();

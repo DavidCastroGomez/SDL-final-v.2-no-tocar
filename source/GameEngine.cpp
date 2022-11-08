@@ -59,16 +59,21 @@ void GameEngine::Render()
 
 
 void GameEngine::Run() {
+	//Before game loop
+	{
+		SplashScreenScreen* s3 = new SplashScreenScreen();
+		MainMenuScene* mms = new MainMenuScene();
+		SM->AddScene("Splash Screen", s3);
+		SM->AddScene("Main Menu", mms);
+		SM->SetScene("Splash Screen");
+	}
+
 	srand(time(NULL));
 	while (isRunning) {
 		//HandleEvents();
-		IM.Listen();
-		isRunning = !IM.GetQuitEvent();
-		//Update();
-
-		//Render();
-		Render();
-
-		logo.SetPosition(rand() % 500, rand() % 500);
+		IM->Listen();
+		isRunning = !IM->GetQuitEvent();
+		SM->GetCurrentScene()->Update(0.0f);
+		SM->GetCurrentScene()->Render();
 	}
 }
