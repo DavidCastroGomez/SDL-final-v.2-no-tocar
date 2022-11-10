@@ -74,6 +74,10 @@ void GameEngine::Run() {
 		IM->Listen();
 		isRunning = !IM->GetQuitEvent();
 		SM->GetCurrentScene()->Update(0.0f);
-		SM->GetCurrentScene()->Render();
+		SDL_SetRenderDrawColor(renderer, 230, 100, 100, 255);
+		SDL_RenderClear(renderer);
+		SM->GetCurrentScene()->Render(renderer);
+
+		SDL_RenderPresent(renderer);
 	}
 }

@@ -25,7 +25,7 @@ void InputManager::Listen()
 
 
 	//Procesar eventos de SDL
-	//Mouse SDL_GetMouseState(&mouseX, &mouseY);
+	SDL_GetMouseState(&mouseX, &mouseY);
 
 	SDL_Event evt;
 

@@ -7,7 +7,7 @@ void SplashScreenScreen::Update(float dt)
 	}
 }
 
-void SplashScreenScreen::Render()
+void SplashScreenScreen::Render(SDL_Renderer* renderer)
 {
 }
 
