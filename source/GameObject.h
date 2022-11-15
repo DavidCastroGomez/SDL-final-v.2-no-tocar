@@ -1,15 +1,18 @@
 #pragma once
+#include "Object.h"
 #include <SDL.h>
 #include <string>
 #include <SDL_image.h>
-class GameObject
+class GameObject : public Object
 {
+protected:
+	//TODO std::vector<ImageRenderer> renderer; 
+
 public:
-	SDL_Texture* texture;
-	SDL_Rect destinationRect;
-	SDL_Rect sourceRect;
+	
 	GameObject() = default;
-	void LoadTexture(SDL_Renderer* renderer, std::string path);
-	void SetPosition(int x, int y);
+	virtual void Update() override = 0;
+	virtual void Render() override = 0;
+	//TODO Renderer* GetRenderer();
 };
 

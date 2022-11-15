@@ -183,15 +183,22 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Object.cpp" />
+    <ClCompile Include="source\AABB.cpp" />
+    <ClCompile Include="source\HighscoreManager.cpp" />
     <ClCompile Include="source\GameEngine.cpp" />
-    <ClCompile Include="source\GameObject.cpp" />
     <ClCompile Include="source\InputManager.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\MainMenuScene.cpp" />
     <ClCompile Include="source\SceneManager.cpp" />
     <ClCompile Include="source\SplashSceneScene.cpp" />
+    <ClCompile Include="source\Vector2.cpp" />
+    <ClCompile Include="source\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Object.h" />
+    <ClInclude Include="source\AABB.h" />
+    <ClInclude Include="source\HighscoreManager.h" />
     <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\GameObject.h" />
     <ClInclude Include="source\MainMenuScene.h" />
@@ -201,6 +208,8 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="source\SceneManager.h" />
     <ClInclude Include="source\texture.h" />
     <ClInclude Include="source\UIText.h" />
+    <ClInclude Include="source\Vector2.h" />
+    <ClInclude Include="source\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
