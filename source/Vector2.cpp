@@ -8,7 +8,7 @@ Vector2::Vector2(float x, float y)
 
 void Vector2::Normalize()
 {
-	float length = sqrt(pow(x, 2) * pow(y, 2));
+	float length = (float)sqrt(pow(x, 2) * pow(y, 2));
 	x = x / length;
 	y = y / length;
 }

@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <string>
 #include <SDL_image.h>
+
 class GameObject : public Object
 {
 protected:

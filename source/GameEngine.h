@@ -22,8 +22,6 @@ private:
 
 	void Render();
 
-	GameObject logo;
-
 public:
 	GameEngine(int x, int y);
 	void Init();

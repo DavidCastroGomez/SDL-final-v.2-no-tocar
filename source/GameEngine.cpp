@@ -14,7 +14,7 @@ void GameEngine::Init() {
 	//Create a window and a renderer
 	InitWindowAndRenderer();
 
-	logo.LoadTexture(renderer, "resources/logo.png");
+	//logo.LoadTexture(renderer, "resources/logo.png");
 
 }
 
@@ -44,17 +44,17 @@ void GameEngine::Quit() {
 	SDL_Quit();
 }
 
-void GameEngine::Render()
-{
-	//Set the clear color for the renderer
-	SDL_SetRenderDrawColor(renderer, rand(), rand(), rand(), rand());
-	//Renderer the background
-	SDL_RenderClear(renderer);
-	//Gameobjects
-	SDL_RenderCopy(renderer, logo.texture, &logo.sourceRect, &logo.destinationRect);
-	//UI
-	SDL_RenderPresent(renderer);
-}
+//void GameEngine::Render()
+//{
+//	//Set the clear color for the renderer
+//	SDL_SetRenderDrawColor(renderer, rand(), rand(), rand(), rand());
+//	//Renderer the background
+//	SDL_RenderClear(renderer);
+//	//Gameobjects
+//	SDL_RenderCopy(renderer, logo.texture, &logo.sourceRect, &logo.destinationRect);
+//	//UI
+//	SDL_RenderPresent(renderer);
+//}
 
 
 
