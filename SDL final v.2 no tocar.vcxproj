@@ -183,6 +183,8 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\AnimatedImageRenderer.cpp" />
+    <ClCompile Include="source\ImageRenderer.cpp" />
     <ClCompile Include="source\Renderer.cpp" />
     <ClCompile Include="source\Object.cpp" />
     <ClCompile Include="source\AABB.cpp" />
@@ -196,8 +198,11 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClCompile Include="source\Vector2.cpp" />
     <ClCompile Include="source\Transform.cpp" />
     <ClCompile Include="source\TimeManager.cpp" />
+    <ClCompile Include="source\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\AnimatedImageRenderer.h" />
+    <ClInclude Include="source\ImageRenderer.h" />
     <ClInclude Include="source\Renderer.h" />
     <ClInclude Include="source\Object.h" />
     <ClInclude Include="source\AABB.h" />
@@ -214,6 +219,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="source\Vector2.h" />
     <ClInclude Include="source\Transform.h" />
     <ClInclude Include="source\TimeManager.h" />
+    <ClInclude Include="source\TextRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

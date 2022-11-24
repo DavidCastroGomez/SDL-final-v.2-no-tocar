@@ -20,6 +20,7 @@ void TimeManager::Update()
 float TimeManager::GetCurrentTime()
 {
     //TODO What time?
+    return 0.0f;
 }
 
 float TimeManager::GetDeltaTime()
