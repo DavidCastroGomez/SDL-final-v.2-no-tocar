@@ -40,7 +40,7 @@ void Renderer::SetScale(Vector2 scale)
 
 SDL_Color Renderer::GetColor()
 {
-	return SDL_Color();
+	return color;
 }
 
 float Renderer::GetAlpha()
