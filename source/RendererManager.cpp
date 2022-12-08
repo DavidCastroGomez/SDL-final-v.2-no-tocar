@@ -1,5 +1,7 @@
 #include "RendererManager.h"
 
+RendererManager* RendererManager::instance = nullptr;
+
 RendererManager::RendererManager(int width, int heigth, int flags)
 {
 	windowWidth = width;

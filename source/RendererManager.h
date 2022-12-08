@@ -6,7 +6,7 @@
 class RendererManager
 {
 private:
-	RendererManager* instance;
+	static RendererManager* instance;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
@@ -16,7 +16,7 @@ public:
 	float windowWidth;
 	float windowHeight;
 
-	RendererManager* GetInstance();
+	static RendererManager* GetInstance();
 	SDL_Renderer* GetRenderer();
 	void ClearScreen();
 	void RenderScreen();

@@ -1,7 +1,9 @@
 #pragma once
+#include "RendererManager.h"
 #include <SDL_image.h>
 #include "Vector2.h"
 #include <string>
+#include <assert.h>
 
 class Renderer
 {

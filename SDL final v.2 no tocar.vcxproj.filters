@@ -63,7 +63,7 @@
     <ClCompile Include="source\TextRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RendererManager.cpp">
+    <ClCompile Include="source\RendererManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,7 +125,7 @@
     <ClInclude Include="source\TextRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RendererManager.h">
+    <ClInclude Include="source\RendererManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
