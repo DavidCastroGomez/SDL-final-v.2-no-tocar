@@ -22,7 +22,7 @@ public:
 
 	virtual void Load(std::string) = 0;
 
-	virtual void Update() = 0;
+	virtual void Update(float) = 0;
 	virtual void Render() = 0;
 
 	void SetColor(SDL_Color);

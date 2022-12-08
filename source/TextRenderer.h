@@ -1,5 +1,7 @@
 #pragma once
 #include "Renderer.h"
+#include "SDL_ttf.h"
+
 class TextRenderer :
     public Renderer
 {
@@ -11,7 +13,7 @@ public:
 
     void Load(std::string) override;
 
-    void Update() override;
+    void Update(float) override;
     void Render() override;
 
     std::string GetText();

@@ -22,7 +22,7 @@ void ImageRenderer::Load(std::string path)
 }
 
 
-void ImageRenderer::Update()
+void ImageRenderer::Update(float)
 {
 	targetRect.x = position.x;
 	targetRect.y = position.y;
