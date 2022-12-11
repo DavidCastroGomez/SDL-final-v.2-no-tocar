@@ -12,8 +12,8 @@ protected:
 public:
 	
 	GameObject() = default;
-	virtual void Update() override = 0;
-	virtual void Render() override = 0;
+	virtual void Update(float dt) = 0;
+	virtual void Render(SDL_Renderer*) = 0;
 	//TODO Renderer* GetRenderer();
 };
 

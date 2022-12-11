@@ -183,6 +183,11 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Car.cpp" />
+    <ClCompile Include="source\EndTileItem.cpp" />
+    <ClCompile Include="source\Food.cpp" />
+    <ClCompile Include="source\Frog.cpp" />
+    <ClCompile Include="source\Log.cpp" />
     <ClCompile Include="source\RendererManager.cpp" />
     <ClCompile Include="source\AnimatedImageRenderer.cpp" />
     <ClCompile Include="source\ImageRenderer.cpp" />
@@ -195,13 +200,24 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\MainMenuScene.cpp" />
     <ClCompile Include="source\SceneManager.cpp" />
+    <ClCompile Include="source\Snake.cpp" />
     <ClCompile Include="source\SplashSceneScene.cpp" />
+    <ClCompile Include="source\Tile.cpp" />
+    <ClCompile Include="source\Turtles.cpp" />
     <ClCompile Include="source\Vector2.cpp" />
     <ClCompile Include="source\Transform.cpp" />
     <ClCompile Include="source\TimeManager.cpp" />
     <ClCompile Include="source\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Car.h" />
+    <ClInclude Include="source\Crocodile.h" />
+    <ClInclude Include="source\DivingTurtles.h" />
+    <ClInclude Include="source\EndTileItem.h" />
+    <ClInclude Include="source\Food.h" />
+    <ClInclude Include="source\Frog.h" />
+    <ClInclude Include="source\Gameplay.h" />
+    <ClInclude Include="source\Log.h" />
     <ClInclude Include="source\RendererManager.h" />
     <ClInclude Include="source\AnimatedImageRenderer.h" />
     <ClInclude Include="source\ImageRenderer.h" />
@@ -212,11 +228,15 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\GameObject.h" />
     <ClInclude Include="source\MainMenuScene.h" />
+    <ClInclude Include="source\Snake.h" />
+    <ClInclude Include="source\Spawner.h" />
     <ClInclude Include="source\SplashSceneScene.h" />
     <ClInclude Include="source\InputManager.h" />
     <ClInclude Include="source\Scene.h" />
     <ClInclude Include="source\SceneManager.h" />
     <ClInclude Include="source\texture.h" />
+    <ClInclude Include="source\Tile.h" />
+    <ClInclude Include="source\Turtles.h" />
     <ClInclude Include="source\UIText.h" />
     <ClInclude Include="source\Vector2.h" />
     <ClInclude Include="source\Transform.h" />
