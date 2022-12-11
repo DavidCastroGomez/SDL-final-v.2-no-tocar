@@ -60,24 +60,24 @@ void GameEngine::Quit() {
 
 void GameEngine::Run() {
 	//Before game loop
-	{
-		SplashScreenScreen* s3 = new SplashScreenScreen();
-		MainMenuScene* mms = new MainMenuScene();
-		SM->AddScene("Splash Screen", s3);
-		SM->AddScene("Main Menu", mms);
-		SM->SetScene("Splash Screen");
-	}
+	//{
+	//	SplashScreenScreen* s3 = new SplashScreenScreen();
+	//	MainMenuScene* mms = new MainMenuScene();
+	//	SM->AddScene("Splash Screen", s3);
+	//	SM->AddScene("Main Menu", mms);
+	//	SM->SetScene("Splash Screen");
+	//}
 
-	srand(time(NULL));
-	while (isRunning) {
-		//HandleEvents();
-		IM->Listen();
-		isRunning = !IM->GetQuitEvent();
-		SM->GetCurrentScene()->Update(0.0f);
-		SDL_SetRenderDrawColor(renderer, 230, 100, 100, 255);
-		SDL_RenderClear(renderer);
-		SM->GetCurrentScene()->Render(renderer);
+	//srand(time(NULL));
+	//while (isRunning) {
+	//	//HandleEvents();
+	//	IM->Listen();
+	//	isRunning = !IM->GetQuitEvent();
+	//	SM->GetCurrentScene()->Update(0.0f);
+	//	SDL_SetRenderDrawColor(renderer, 230, 100, 100, 255);
+	//	SDL_RenderClear(renderer);
+	//	SM->GetCurrentScene()->Render(renderer);
 
-		SDL_RenderPresent(renderer);
-	}
+	//	SDL_RenderPresent(renderer);
+	//}
 }
