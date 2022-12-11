@@ -184,6 +184,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\Car.cpp" />
+    <ClCompile Include="source\DivingTurtles.cpp" />
     <ClCompile Include="source\EndTileItem.cpp" />
     <ClCompile Include="source\Food.cpp" />
     <ClCompile Include="source\Frog.cpp" />
