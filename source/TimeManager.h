@@ -1,9 +1,12 @@
 #pragma once
+
+#define TM TimeManager::GetInstance()
+
 class TimeManager
 {
 private:
 	float deltaTime;
-	TimeManager* instance;
+	static TimeManager* instance;
 
 	TimeManager() = default;
 
@@ -11,7 +14,7 @@ public:
 	static const float FPS;
 	static const float tick;
 
-	TimeManager* GetInstance();
+	static TimeManager* GetInstance();
 	void Update();
 	float GetCurrentTime();
 	float GetDeltaTime();

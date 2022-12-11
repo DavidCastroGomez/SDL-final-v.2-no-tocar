@@ -1,5 +1,7 @@
 #include "TimeManager.h"
 
+TimeManager* TimeManager::instance = nullptr;
+
 const float TimeManager::FPS = 60.f;
 const float TimeManager::tick = 1/60.f;
 
