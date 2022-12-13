@@ -2,6 +2,7 @@
 #include "Object.h"
 #include <vector>
 #include <SDL.h>
+#include "RendererManager.h"
 
 class Scene {
 protected:
