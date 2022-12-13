@@ -5,8 +5,8 @@ class DivingTurtles : private Turtles
 {
 public:
 	DivingTurtles(float diveDuration, float surfaceDuration, int length);
-	void Update(float dt) override;
-	void Render(SDL_Renderer*) override;
+	void Update() override;
+	void Render() override;
 	bool isDiving();
 private:
 	float diveDuration, surfaceDuration, elapsedTime;

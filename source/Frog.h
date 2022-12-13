@@ -10,8 +10,8 @@ public:
 	void Respawn();
 	void AddMovement(Vector2 dir);
 	bool isMoving();
-	void Update(float dt) override;
-	void Render(SDL_Renderer*) override;
+	void Update() override;
+	void Render() override;
 	void AddFood(Food* food);
 private:
 	Vector2 targetPosition;
