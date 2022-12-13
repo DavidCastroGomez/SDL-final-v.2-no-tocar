@@ -28,3 +28,10 @@ void Frog::AddFood(Food* food)
 	if (!hasFood)
 		hasFood = true;
 }
+
+void Frog::Update()
+{
+	TM->GetDeltaTime();
+	IM->CheckKeyState('a', PRESSED);
+	Transform(Transform().position, Transform().rotation, Transform().scale);
+}

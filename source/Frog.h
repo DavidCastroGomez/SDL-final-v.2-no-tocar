@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "Vector2.h"
 #include "Food.h"
+#include "TimeManager.h"
+#include "InputManager.h"
 class Frog : public GameObject
 {
 public:
