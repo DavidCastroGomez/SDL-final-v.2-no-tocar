@@ -1,7 +1,7 @@
 #include "ImageRenderer.h"
 
-ImageRenderer::ImageRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect targetRect, SDL_Rect sourceRect)
-	: Renderer(color, alpha, position, rotation, scale, targetRect, sourceRect)
+ImageRenderer::ImageRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect targetRect, SDL_Rect sourceRect, SDL_Point center)
+	: Renderer(color, alpha, position, rotation, scale, targetRect, sourceRect, center)
 {
 }
 
@@ -22,7 +22,7 @@ void ImageRenderer::Load(std::string path)
 }
 
 
-void ImageRenderer::Update(float)
+void ImageRenderer::Update()
 {
 	targetRect.x = position.x;
 	targetRect.y = position.y;
@@ -34,5 +34,5 @@ void ImageRenderer::Update(float)
 
 void ImageRenderer::Render()
 {
-	SDL_RenderCopyEx(RM->GetRenderer(), texture, &sourceRect, &targetRect, rotation, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(RM->GetRenderer(), texture, &sourceRect, &targetRect, rotation, &center, SDL_FLIP_NONE);
 }

@@ -17,8 +17,9 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 	//timemanager.time = std::stoi(pRoot->first_node("MaxTime")->value());
 
 	int y = 0;
-	for (rapidxml::xml_node<>* pNode = pRoot->first_node(); pNode; pNode = pNode->next_sibling()) {
+	for (rapidxml::xml_node<>* pNode = pRoot->first_node("Layout")->first_node(); pNode; pNode = pNode->next_sibling()) {
 		int i = 0;
+		/*
 		switch (ConvertStrToRowType(pNode->name()))
 		{
 		case RowTypes::ENDZONE:
@@ -83,6 +84,7 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 		case RowTypes::SAFEZONE:
 			break;						
 		}
+		*/
 		InsertTiles(ConvertStrToRowType(pNode->name()), 13, y);
 
 		y++;
@@ -92,28 +94,50 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 GameplayScene::RowTypes GameplayScene::ConvertStrToRowType(std::string str)
 {
     RowTypes type = RowTypes::NONE;
-    if (str == "ENDZONE")
+    if (str == "EndZone")
         type = RowTypes::ENDZONE;
-    else if (str == "LOGRIVER")
+    else if (str == "LogRiver")
         type = RowTypes::LOGRIVER;
-    else if (str == "TURTLESRIVER")
+    else if (str == "TurtlesRiver")
         type = RowTypes::TURTLESRIVER;
-    else if (str == "SAFEZONE")
+    else if (str == "SafeZone")
         type = RowTypes::SAFEZONE;
+	else if(str == "Road")
+		type = RowTypes::ROAD;
     return type;
 }
 
-void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row)
+void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 {
 	for (int i = 0; i < numOfTiles; i++) {
-		//Tile newTile = Tile();
-		// newTile.SetPosition(i, row);
-		//tiles.push_back(newTile);
+		int tileType;
+		if (type == RowTypes::LOGRIVER || type == RowTypes::TURTLESRIVER) {
+			tileType = 1;
+		}
+		else if (type == RowTypes::ENDZONE) {
+			tileType = i % 2;
+		}
+		else if (type == RowTypes::SAFEZONE) {
+			tileType = 2;
+		}
+		else if (type == RowTypes::ROAD) {
+			tileType = 3;
+		}
+		if (tileType < 2) {
+			Tile* newTile = new Tile(false, tileType);
+			newTile->SetPosition(Vector2(i * 16, row * 16));
+			tiles.push_back(newTile);
+		}
+		
 	}
 }
 
 void GameplayScene::Update()
 {
+	for (int i = 0; i < tiles.size(); i++) {
+		tiles[i]->Update();
+	}
+
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i].Update();
 	}
@@ -125,6 +149,10 @@ void GameplayScene::Update()
 
 void GameplayScene::Render()
 {
+	for (int i = 0; i < tiles.size(); i++) {
+		tiles[i]->Render();
+	}
+
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i].Render();
 	}
@@ -140,7 +168,7 @@ void GameplayScene::OnEnter()
 	* player = new Frog();
 	* Frog.transform.SetPosition(RM->windowWidth / 2, 0);
 	*/
-	LoadLevelFromFile("../resources/level.xml");	
+	LoadLevelFromFile("./resources/level.xml");	
 }
 
 void GameplayScene::OnExit()

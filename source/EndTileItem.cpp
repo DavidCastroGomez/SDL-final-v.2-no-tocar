@@ -8,6 +8,14 @@ EndTileItem::EndTileItem(float duration, bool isLethal, std::string spritePath)
 	isFinished = false;
 }
 
+void EndTileItem::Update()
+{
+}
+
+void EndTileItem::Render()
+{
+}
+
 bool EndTileItem::IsFinished()
 {
 	return isFinished;

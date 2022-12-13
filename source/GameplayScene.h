@@ -13,7 +13,7 @@ class GameplayScene : public Scene
 {
 private:
     std::vector<Spawner> spawner;
-    std::vector<GameObject> tiles;
+    std::vector<Tile*> tiles;
     bool endPosition[5];
     //Frog player;
     static int level;

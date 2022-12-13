@@ -188,6 +188,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClCompile Include="source\EndTileItem.cpp" />
     <ClCompile Include="source\Food.cpp" />
     <ClCompile Include="source\Frog.cpp" />
+    <ClCompile Include="source\GameObject.cpp" />
     <ClCompile Include="source\Log.cpp" />
     <ClCompile Include="source\GameplayScene.cpp" />
     <ClCompile Include="source\RendererManager.cpp" />

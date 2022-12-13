@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <iostream>
 
 #define TM TimeManager::GetInstance()
 

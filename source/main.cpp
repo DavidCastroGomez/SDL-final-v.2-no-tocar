@@ -3,7 +3,7 @@
 #include "GameEngine.h"
 
 int main(int argc, char* args[]) {
-	GameEngine game(500, 500);
+	GameEngine game;
 	game.Init();
 	game.Run();
 	game.Quit();

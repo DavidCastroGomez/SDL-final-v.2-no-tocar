@@ -23,6 +23,8 @@ void TimeManager::Update()
         deltaTime = tick;
     lastDeltaTime = deltaTime - SDL_GetTicks();
     totalTime += deltaTime;
+
+    std::cout << deltaTime << std::endl;
 }
 
 float TimeManager::GetCurrentTime()

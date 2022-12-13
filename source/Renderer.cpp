@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-Renderer::Renderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect targetRect, SDL_Rect sourceRect)
+Renderer::Renderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect targetRect, SDL_Rect sourceRect, SDL_Point center)
 {
 	this->color = color;
 	this->alpha = alpha;
@@ -11,6 +11,8 @@ Renderer::Renderer(SDL_Color color, float alpha, Vector2 position, float rotatio
 
 	this->targetRect = targetRect;
 	this->sourceRect = sourceRect;
+
+	this->center = center;
 }
 
 void Renderer::SetColor(SDL_Color color)
