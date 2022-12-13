@@ -236,6 +236,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\GameObject.h" />
     <ClInclude Include="source\MainMenuScene.h" />
+    <ClInclude Include="source\ScoreManager.h" />
     <ClInclude Include="source\Snake.h" />
     <ClInclude Include="source\Spawner.h" />
     <ClInclude Include="source\SplashSceneScene.h" />

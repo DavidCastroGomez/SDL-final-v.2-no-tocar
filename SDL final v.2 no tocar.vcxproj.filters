@@ -212,5 +212,8 @@
     <ClInclude Include="dependencies\XML\rapidxml_utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\ScoreManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
