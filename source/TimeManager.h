@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL.h>
 
 #define TM TimeManager::GetInstance()
 
@@ -6,6 +7,7 @@ class TimeManager
 {
 private:
 	float deltaTime;
+	static float lastDeltaTime;
 	static TimeManager* instance;
 
 	TimeManager() = default;
@@ -13,6 +15,7 @@ private:
 public:
 	static const float FPS;
 	static const float tick;
+	static float totalTime;
 
 	static TimeManager* GetInstance();
 	void Update();
