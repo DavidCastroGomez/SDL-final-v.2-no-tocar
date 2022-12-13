@@ -14,7 +14,10 @@ void Frog::Respawn()
 
 void Frog::AddMovement(Vector2 dir)
 {
-
+	moving = true;
+	transform.position.x += dir.x;
+	transform.position.y += dir.y;
+	moving = false;
 }
 
 bool Frog::isMoving()
@@ -30,27 +33,30 @@ void Frog::AddFood(Food* food)
 }
 
 void Frog::Update()
-{
-	//Funcions que he de recordar mentre ho faig
-	TM->GetDeltaTime();
-	IM->CheckKeyState(SDLK_w, PRESSED);
-	Transform(Transform().position, Transform().rotation, Transform().scale);
-	transform.position = transform.position;
-
-	if (IM->CheckKeyState(SDLK_w, PRESSED))
+{	
+	if (!isMoving())
 	{
-		transform.position.y += 16;
-	}
-	if (IM->CheckKeyState(SDLK_s, PRESSED))
-	{
-		transform.position.y -= 16;
-	}
-	if (IM->CheckKeyState(SDLK_d, PRESSED))
-	{
-		transform.position.x += 16;
-	}
-	if (IM->CheckKeyState(SDLK_a, PRESSED))
-	{
-		transform.position.x -= 16;
+		Vector2 dir;
+		if (IM->CheckKeyState(SDLK_w, PRESSED))
+		{
+			dir.x = 0;
+			dir.y = 16;
+		}
+		if (IM->CheckKeyState(SDLK_s, PRESSED))
+		{
+			dir.x = 0;
+			dir.y = -16;
+		}
+		if (IM->CheckKeyState(SDLK_d, PRESSED))
+		{
+			dir.x = 16;
+			dir.y = 0;
+		}
+		if (IM->CheckKeyState(SDLK_a, PRESSED))
+		{
+			dir.x = -16;
+			dir.y = 0;
+		}
+		AddMovement(dir);
 	}
 }
