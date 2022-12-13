@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Renderer.h"
 #include <SDL.h>
 #include <string>
 #include <SDL_image.h>

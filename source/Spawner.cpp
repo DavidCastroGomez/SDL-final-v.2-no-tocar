@@ -1,6 +1,6 @@
 #include "Spawner.h"
 
-GameObject* Spawner::Update()
+Spawner::Spawner()
 {
-
+	
 }
