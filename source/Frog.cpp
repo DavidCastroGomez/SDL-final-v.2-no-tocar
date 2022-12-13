@@ -25,13 +25,14 @@ bool Frog::isMoving()
 void Frog::AddFood(Food* food)
 {
 	this->food = food;
-	if (!hasFood)
-		hasFood = true;
+	hasFood = true;
+	this->food->AttachToPlayer();
 }
 
 void Frog::Update()
 {
+	//Funcions que he de recordar mentre ho faig
 	TM->GetDeltaTime();
-	IM->CheckKeyState('a', PRESSED);
+	IM->CheckKeyState(SDLK_w, PRESSED);
 	Transform(Transform().position, Transform().rotation, Transform().scale);
 }

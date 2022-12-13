@@ -203,6 +203,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClCompile Include="source\MainMenuScene.cpp" />
     <ClCompile Include="source\SceneManager.cpp" />
     <ClCompile Include="source\Snake.cpp" />
+    <ClCompile Include="source\Spawner.cpp" />
     <ClCompile Include="source\SplashSceneScene.cpp" />
     <ClCompile Include="source\Tile.cpp" />
     <ClCompile Include="source\Turtles.cpp" />
