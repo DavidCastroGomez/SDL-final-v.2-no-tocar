@@ -6,8 +6,8 @@ class Car : public GameObject
 {
 public:
 	Car(std::string spritePath);
-	void Update(float dt) override;
-	void Render(SDL_Renderer*) override;
+	void Update() override;
+	void Render() override;
 private:
 	std::string spritePath;
 };

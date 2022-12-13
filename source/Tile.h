@@ -5,8 +5,8 @@ class Tile : public GameObject
 {
 public:
 	Tile(bool isLethal);
-	void Update(float dt) override;
-	void Render(SDL_Renderer*) override;
+	void Update() override;
+	void Render() override;
 private:
 	bool isLethal;
 };

@@ -6,8 +6,8 @@ class Snake : public GameObject
 {
 public:
 	Snake(Log* log);
-	void Update(float dt) override;
-	void Render(SDL_Renderer*) override;
+	void Update() override;
+	void Render() override;
 private:
 	Log* log;
 };

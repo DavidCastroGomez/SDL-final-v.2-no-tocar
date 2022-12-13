@@ -6,8 +6,8 @@ class EndTileItem : public GameObject
 {
 public:
 	EndTileItem(float duration, bool isLethal, std::string spritePath);
-	void Update(float dt) override;
-	void Render(SDL_Renderer*) override;
+	void Update() override;
+	void Render() override;
 	bool IsFinished();
 private:
 	float duration, currentDuration;

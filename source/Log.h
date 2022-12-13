@@ -5,8 +5,8 @@ class Log : public GameObject
 {
 public:
 	Log(int length);
-	virtual void Update(float dt) override;
-	virtual void Render(SDL_Renderer*) override;
+	virtual void Update() override;
+	virtual void Render() override;
 private:
 	int length;
 };
