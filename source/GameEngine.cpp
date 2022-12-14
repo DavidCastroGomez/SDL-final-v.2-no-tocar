@@ -15,6 +15,8 @@ void GameEngine::Init() {
 
 	SM->AddScene("Game", gameS);
 	SM->SetScene("Game");
+
+	
 }
 
 
@@ -67,6 +69,9 @@ void GameEngine::Run() {
 
 	while (isRunning) {
 		IM->Listen();
+
+		EH->HandleEvents();
+
 		isRunning = !IM->GetQuitEvent();
 
 		TM->Update();

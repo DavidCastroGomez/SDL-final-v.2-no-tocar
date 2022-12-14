@@ -47,3 +47,4 @@ SDL_Window* RendererManager::GetWindow()
 {
 	return window;
 }
+
