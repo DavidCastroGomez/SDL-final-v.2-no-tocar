@@ -54,3 +54,7 @@ void Frog::Update()
 		transform.position.x -= 16;
 	}
 }
+
+void Frog::Render()
+{
+}

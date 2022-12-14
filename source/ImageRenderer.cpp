@@ -1,7 +1,7 @@
 #include "ImageRenderer.h"
 
-ImageRenderer::ImageRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect targetRect, SDL_Rect sourceRect)
-	: Renderer(color, alpha, position, rotation, scale, targetRect, sourceRect)
+ImageRenderer::ImageRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect* targetRect, SDL_Rect* sourceRect, SDL_Point center)
+	: Renderer(color, alpha, position, rotation, scale, targetRect, sourceRect, center)
 {
 }
 
@@ -22,17 +22,25 @@ void ImageRenderer::Load(std::string path)
 }
 
 
-void ImageRenderer::Update(float)
+void ImageRenderer::Update()
 {
-	targetRect.x = position.x;
-	targetRect.y = position.y;
-	targetRect.w = sourceRect.x * scale.x;
-	targetRect.h = sourceRect.y * scale.y;
+	targetRect->x = position.x;
+	targetRect->y = position.y;
+
+	/*int newX, newY;
+
+	SDL_GetWindowSize(RM->GetWindow(), &newX, &newY);
+
+	scale.x = scale.x * (newX / RM->windowWidth);
+	scale.y = scale.y * (newY / RM->windowHeight);*/
+
+	//targetRect->w = sourceRect->x * scale.x;
+	//targetRect->h = sourceRect->y * scale.y;
 	SDL_SetTextureAlphaMod(texture, (Uint8)alpha);
 	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
 }
 
 void ImageRenderer::Render()
 {
-	SDL_RenderCopyEx(RM->GetRenderer(), texture, &sourceRect, &targetRect, rotation, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(RM->GetRenderer(), texture, sourceRect, targetRect, rotation, &center, SDL_FLIP_NONE);
 }

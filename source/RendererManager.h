@@ -10,7 +10,7 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
-	RendererManager(int width, int heigth, int flags);
+	RendererManager(int width, int heigth, Uint32 flags);
 
 public:
 	float windowWidth;
@@ -20,5 +20,6 @@ public:
 	SDL_Renderer* GetRenderer();
 	void ClearScreen();
 	void RenderScreen();
+	SDL_Window* GetWindow();
 };
 

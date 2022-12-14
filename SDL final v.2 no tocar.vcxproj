@@ -183,11 +183,13 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\EventsHandler.cpp" />
     <ClCompile Include="source\Car.cpp" />
     <ClCompile Include="source\DivingTurtles.cpp" />
     <ClCompile Include="source\EndTileItem.cpp" />
     <ClCompile Include="source\Food.cpp" />
     <ClCompile Include="source\Frog.cpp" />
+    <ClCompile Include="source\GameObject.cpp" />
     <ClCompile Include="source\Log.cpp" />
     <ClCompile Include="source\GameplayScene.cpp" />
     <ClCompile Include="source\RendererManager.cpp" />
@@ -217,6 +219,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="dependencies\XML\rapidxml_iterators.hpp" />
     <ClInclude Include="dependencies\XML\rapidxml_print.hpp" />
     <ClInclude Include="dependencies\XML\rapidxml_utils.hpp" />
+    <ClInclude Include="source\EventsHandler.h" />
     <ClInclude Include="source\Car.h" />
     <ClInclude Include="source\Crocodile.h" />
     <ClInclude Include="source\DivingTurtles.h" />

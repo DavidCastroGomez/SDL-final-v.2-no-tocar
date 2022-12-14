@@ -1,5 +1,6 @@
 #pragma once
 #include "RendererManager.h"
+#include "TimeManager.h"
 #include <SDL_image.h>
 #include "Vector2.h"
 #include <string>
@@ -14,15 +15,16 @@ protected:
 	Vector2 position;
 	float rotation;
 	Vector2 scale;
-	SDL_Rect targetRect;
-	SDL_Rect sourceRect;
+	SDL_Rect* targetRect;
+	SDL_Rect* sourceRect;
+	SDL_Point center;
 
 public:
-	Renderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect targetRect, SDL_Rect sourceRect);
+	Renderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect* targetRect, SDL_Rect* sourceRect, SDL_Point center);
 
 	virtual void Load(std::string) = 0;
 
-	virtual void Update(float) = 0;
+	virtual void Update() = 0;
 	virtual void Render() = 0;
 
 	void SetColor(SDL_Color);

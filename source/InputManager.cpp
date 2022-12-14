@@ -26,20 +26,6 @@ void InputManager::Listen()
 
 	//Procesar eventos de SDL
 	SDL_GetMouseState(&mouseX, &mouseY);
-
-	SDL_Event evt;
-
-	while (SDL_PollEvent(&evt)) {
-		if (evt.type == SDL_QUIT) {
-			quitEvent = true;
-		}
-		else if (evt.type == SDL_KEYDOWN) {
-			keys[evt.key.keysym.sym] = (KeyState)(DOWN | PRESSED);
-		}
-		else if (evt.type == SDL_KEYUP){
-			keys[evt.key.keysym.sym] = (KeyState)(UP | RELEASED);
-		}
-	}
 }
 
 bool InputManager::CheckKeyState(Sint32 key, KeyState state)
@@ -66,4 +52,14 @@ int InputManager::GetMouseY()
 bool InputManager::GetQuitEvent()
 {
 	return quitEvent;
+}
+
+std::unordered_map<Sint32, KeyState>* InputManager::GetKeys()
+{
+	return &keys;
+}
+
+void InputManager::SetQuitEvent(bool b)
+{
+	quitEvent = b;
 }

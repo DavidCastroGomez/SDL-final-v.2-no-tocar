@@ -26,4 +26,7 @@ public:
 	int GetMouseX();
 	int GetMouseY();
 	bool GetQuitEvent();
+
+	std::unordered_map<Sint32, KeyState>* GetKeys();
+	void SetQuitEvent(bool b);
 };

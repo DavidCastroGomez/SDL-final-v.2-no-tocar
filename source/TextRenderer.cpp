@@ -1,7 +1,7 @@
 #include "TextRenderer.h"
 
-TextRenderer::TextRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect targetRect, SDL_Rect sourceRect, std::string text)
-	: Renderer(color, alpha, position, rotation, scale, targetRect, sourceRect)
+TextRenderer::TextRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect* targetRect, SDL_Rect* sourceRect, std::string text, SDL_Point center)
+	: Renderer(color, alpha, position, rotation, scale, targetRect, sourceRect, center)
 {
 	this->text = text;
 }
@@ -25,19 +25,19 @@ void TextRenderer::Load(std::string path)
 	SDL_DestroyTexture(texture);
 }
 
-void TextRenderer::Update(float)
+void TextRenderer::Update()
 {
-	targetRect.x = (int)position.x;
+	/*targetRect.x = (int)position.x;
 	targetRect.y = (int)position.y;
 	targetRect.w = (int)sourceRect.x * (int)scale.x;
 	targetRect.h = (int)sourceRect.y * (int)scale.y;
 	SDL_SetTextureAlphaMod(texture, (Uint8)alpha);
-	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);*/
 }
 
 void TextRenderer::Render()
 {
-	SDL_RenderCopyEx(RM->GetRenderer(), texture, &sourceRect, &targetRect, rotation, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(RM->GetRenderer(), texture, sourceRect, targetRect, rotation, NULL, SDL_FLIP_NONE);
 }
 
 std::string TextRenderer::GetText()

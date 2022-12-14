@@ -1,53 +1,37 @@
 #include "GameEngine.h"
 #include <random>
 
-GameEngine::GameEngine(int x, int y) {
-	windowWidth = x;
-	windowHeight = y;
+GameEngine::GameEngine() {
 	isRunning = true;
 }
 
 #pragma region INITIALIZATION
 void GameEngine::Init() {
-	//Initialize SDL
-	InitSDL();
-	//Create a window and a renderer
-	InitWindowAndRenderer();
+	SM;
+	TM;
+	RM;
 
-	//logo.LoadTexture(renderer, "resources/logo.png");
+	GameplayScene* gameS = new GameplayScene();
 
-}
+	SM->AddScene("Game", gameS);
+	SM->SetScene("Game");
 
-void GameEngine::InitSDL() {
-	int result = SDL_Init(SDL_INIT_VIDEO);
-
-	bool success = result >= 0;
-	if (!success)
-		throw SDL_GetError();
-}
-
-void GameEngine::InitWindowAndRenderer() {
-
-	int result = SDL_CreateWindowAndRenderer(windowWidth, windowHeight, SDL_WINDOW_SHOWN, &window, &renderer);
-
-	bool success = result >= 0;
-	if (!success)
-		throw SDL_GetError();
+	
 }
 
 
 #pragma endregion INITIALIZATION
 
 void GameEngine::Quit() {
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(RM->GetRenderer());
+	//SDL_DestroyWindow(RM);
 	SDL_Quit();
 }
 
 //void GameEngine::Render()
 //{
 //	//Set the clear color for the renderer
-//	SDL_SetRenderDrawColor(renderer, rand(), rand(), rand(), rand());
+//	
 //	//Renderer the background
 //	SDL_RenderClear(renderer);
 //	//Gameobjects
@@ -80,4 +64,26 @@ void GameEngine::Run() {
 
 	//	SDL_RenderPresent(renderer);
 	//}
+
+
+
+	while (isRunning) {
+		IM->Listen();
+
+		EH->HandleEvents();
+
+		isRunning = !IM->GetQuitEvent();
+
+		TM->Update();
+		SM->GetCurrentScene()->Update();
+
+		SDL_SetRenderDrawColor(RM->GetRenderer(), 255, 255, 255, 255);
+
+		SDL_RenderClear(RM->GetRenderer());
+
+		SM->GetCurrentScene()->Render();
+		RM->RenderScreen();
+
+	}
+
 }
