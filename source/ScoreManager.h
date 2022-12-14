@@ -1,11 +1,16 @@
 #pragma once
+
+#define SM ScoreManager::GetInstance()
+
 class ScoreManager
 {
 public:
+
 	int GetScore();
 	void AddScore(int score);
+	static ScoreManager* GetInstance();
 private:
 	static ScoreManager* instance;
-	ScoreManager();
 	int score;
+	ScoreManager(int startingScore);
 };

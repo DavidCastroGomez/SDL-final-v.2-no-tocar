@@ -35,7 +35,7 @@ bool Frog::isMoving()
 
 void Frog::AddScore(int score)
 {
-	//ScoreManager::AddScore(score);
+	SM->AddScore(score);
 }
 
 void Frog::AddFood(Food* food)
