@@ -19,6 +19,7 @@ public:
 	void AddScore(int score);
 private:
 	Vector2 targetPosition;
+	Vector2 initialPosition;
 	bool moving, hasFood;
 	Food* food;
 	int lastRow, currentRow;

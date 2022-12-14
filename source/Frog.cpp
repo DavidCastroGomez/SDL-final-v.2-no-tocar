@@ -11,7 +11,7 @@ Frog::Frog()
 
 void Frog::Respawn()
 {
-
+	AddMovement(initialPosition);
 }
 
 void Frog::AddMovement(Vector2 dir)
