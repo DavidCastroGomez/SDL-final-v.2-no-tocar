@@ -1,6 +1,6 @@
 #include "AnimatedImageRenderer.h"
 
-AnimatedImageRenderer::AnimatedImageRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect targetRect, SDL_Rect sourceRect, SDL_Point center,
+AnimatedImageRenderer::AnimatedImageRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect* targetRect, SDL_Rect* sourceRect, SDL_Point center,
 	int frameWidth, int frameHeigth, int maxFrames, int frameTime, int cols, bool looping)
 	: ImageRenderer(color, alpha, position, rotation, scale, targetRect, sourceRect, center)
 {
@@ -23,7 +23,7 @@ void AnimatedImageRenderer::Load(std::string path)
 
 void AnimatedImageRenderer::Update()
 {
-	ImageRenderer::Update();
+	/*ImageRenderer::Update();
 
 	currentFrameTime += TM->GetDeltaTime();
 	int frameIncrement = (int)(currentFrameTime / frameTime);
@@ -42,7 +42,7 @@ void AnimatedImageRenderer::Update()
 	int frameX = currentFrame % cols;
 	int frameY = currentFrame / cols;
 
-	sourceRect = { sourceRect.w * frameX, sourceRect.h * frameY, sourceRect.w, sourceRect.h };
+	sourceRect = { sourceRect.w * frameX, sourceRect.h * frameY, sourceRect.w, sourceRect.h };*/
 }
 
 void AnimatedImageRenderer::Render()

@@ -82,10 +82,10 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 			}
 			break;
 		case RowTypes::SAFEZONE:
-			break;						
+			break;
 		}
 		*/
-		InsertTiles(ConvertStrToRowType(pNode->name()), 13, y);
+		InsertTiles(ConvertStrToRowType(pNode->name()), 11, y);
 
 		y++;
 	}
@@ -93,18 +93,18 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 
 GameplayScene::RowTypes GameplayScene::ConvertStrToRowType(std::string str)
 {
-    RowTypes type = RowTypes::NONE;
-    if (str == "EndZone")
-        type = RowTypes::ENDZONE;
-    else if (str == "LogRiver")
-        type = RowTypes::LOGRIVER;
-    else if (str == "TurtlesRiver")
-        type = RowTypes::TURTLESRIVER;
-    else if (str == "SafeZone")
-        type = RowTypes::SAFEZONE;
-	else if(str == "Road")
+	RowTypes type = RowTypes::NONE;
+	if (str == "EndZone")
+		type = RowTypes::ENDZONE;
+	else if (str == "LogRiver")
+		type = RowTypes::LOGRIVER;
+	else if (str == "TurtlesRiver")
+		type = RowTypes::TURTLESRIVER;
+	else if (str == "SafeZone")
+		type = RowTypes::SAFEZONE;
+	else if (str == "Road")
 		type = RowTypes::ROAD;
-    return type;
+	return type;
 }
 
 void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
@@ -112,23 +112,24 @@ void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 	for (int i = 0; i < numOfTiles; i++) {
 		int tileType;
 		if (type == RowTypes::LOGRIVER || type == RowTypes::TURTLESRIVER) {
-			tileType = 1;
+			tileType = 2;
 		}
 		else if (type == RowTypes::ENDZONE) {
 			tileType = i % 2;
 		}
 		else if (type == RowTypes::SAFEZONE) {
-			tileType = 2;
-		}
-		else if (type == RowTypes::ROAD) {
 			tileType = 3;
 		}
-		if (tileType < 2) {
-			Tile* newTile = new Tile(false, tileType);
-			newTile->SetPosition(Vector2(i * 16, row * 16));
-			tiles.push_back(newTile);
+		else if (type == RowTypes::ROAD) {
+			tileType = 4;
 		}
-		
+		else {
+			assert(-1);
+		}
+		Tile* newTile = new Tile(false, tileType);
+		newTile->SetPosition(Vector2(i * 16, row * 16));
+		tiles.push_back(newTile);
+
 	}
 }
 
@@ -168,7 +169,7 @@ void GameplayScene::OnEnter()
 	* player = new Frog();
 	* Frog.transform.SetPosition(RM->windowWidth / 2, 0);
 	*/
-	LoadLevelFromFile("./resources/level.xml");	
+	LoadLevelFromFile("./resources/level.xml");
 }
 
 void GameplayScene::OnExit()

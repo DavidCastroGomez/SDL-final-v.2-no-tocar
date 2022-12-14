@@ -20,5 +20,6 @@ public:
 	SDL_Renderer* GetRenderer();
 	void ClearScreen();
 	void RenderScreen();
+	SDL_Window* GetWindow();
 };
 

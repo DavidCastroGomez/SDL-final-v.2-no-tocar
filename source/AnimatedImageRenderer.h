@@ -15,7 +15,7 @@ private:
 
 
 public:
-    AnimatedImageRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect targetRect, SDL_Rect sourceRect, SDL_Point center,
+    AnimatedImageRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect* targetRect, SDL_Rect* sourceRect, SDL_Point center,
         int frameWidth, int frameHeigth, int maxFrames, int frameTime, int cols, bool looping);
 
     void Load(std::string) override;

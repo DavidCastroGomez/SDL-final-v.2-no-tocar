@@ -42,3 +42,8 @@ void RendererManager::RenderScreen()
 {
 	SDL_RenderPresent(renderer);
 }
+
+SDL_Window* RendererManager::GetWindow()
+{
+	return window;
+}
