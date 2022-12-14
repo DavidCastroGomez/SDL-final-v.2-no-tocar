@@ -25,7 +25,7 @@ void EventsHandler::HandleEvents()
 			IM->GetKeys()->at(evt.key.keysym.sym) = (KeyState)(UP | RELEASED);
 		}
 		else if (evt.window.event == SDL_WINDOWEVENT_RESIZED) {
-			SDL_RenderSetScale(RM->GetRenderer(), RM->windowWidth / evt.window.data1, RM->windowHeight / evt.window.data2);
+			SDL_RenderSetScale(RM->GetRenderer(), evt.window.data1 / RM->windowWidth, evt.window.data2 / RM->windowHeight);
 			SDL_RenderPresent(RM->GetRenderer());
 		}
 	}

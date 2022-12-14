@@ -8,7 +8,7 @@ private:
 public:
 	AABB() = default;
 	AABB(Vector2, Vector2);
-	bool CheckOverlappingAABB(const AABB*);
+	bool CheckOverlappingAABB(AABB*);
 	bool CheckOverlappingPoint(Vector2);
 	Vector2 GetTopLeft();
 	Vector2 GetSize();
