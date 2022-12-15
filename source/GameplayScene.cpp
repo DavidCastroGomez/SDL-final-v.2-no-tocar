@@ -17,78 +17,86 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 	//timemanager.time = std::stoi(pRoot->first_node("MaxTime")->value());
 
 	int y = 0;
+	InsertTiles(RowTypes::BORDER, 11, y);
+	y++;
 	for (rapidxml::xml_node<>* pNode = pRoot->first_node("Layout")->first_node(); pNode; pNode = pNode->next_sibling()) {
 		int i = 0;
-		/*
+		
 		switch (ConvertStrToRowType(pNode->name()))
 		{
 		case RowTypes::ENDZONE:
 			break;
 		case RowTypes::LOGRIVER:
-			Spawner spawner;
+		{
+			Spawner* spawner = new Spawner("log");
+			spawner->SetStartPosition(Vector2(-2*16, y));
+			spawner->SetMinLength(std::stof(pNode->first_attribute("minLength")->value()));
+			spawner->SetMaxLength(std::stof(pNode->first_attribute("maxLength")->value()));
 			for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
 				switch (i) {
 				case 0:
-					//spawner.object.minLength = pNodeI->first_attribute("minLength");
-					//spawner.object.maxLength = pNodeI->first_attribute("maxLength");
+					spawner->SetMinSpawnTime(std::stof(pNodeI->first_attribute("min")->value()));
+					spawner->SetMaxSpawnTime(std::stof(pNodeI->first_attribute("max")->value()));
+					break;
 				case 1:
-					//spawner.minSpawnRate = pNodeI->first_attribute("min");
-					//spawner.maxSpawnRate = pNodeI->first_attribute("max");
+					spawner->SetVariantChance(std::stoi(pNodeI->value()));
 					break;
 				case 2:
-					//spawner.crocodileChance = pNodeI->value();
-					break;
-				case 3:
-					//spawner.snakeChance = pNodeI->value();
+					spawner->SetSnakeChance(std::stoi(pNodeI->value()));
 					break;
 				}
 				i++;
 			}
-			//spawner.push_back(spawner());
+			spawners.push_back(spawner);
+		}
 			break;
 		case RowTypes::TURTLESRIVER:
-			Spawner spawner;
+		{
+			Spawner* spawner = new Spawner("turtle");
+			spawner->SetStartPosition(Vector2(13*16, y*16));
+			spawner->SetMinLength(std::stof(pNode->first_attribute("minLength")->value()));
+			spawner->SetMaxLength(std::stof(pNode->first_attribute("maxLength")->value()));
 			for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
-				switch (i) {
+				switch (i) {;
 				case 0:
-					//spawner.object.minLength = pNodeI->first_attribute("minLength");
-					//spawner.object.maxLength = pNodeI->first_attribute("maxLength");
-				case 1:
-					//spawner.minSpawnRate = pNodeI->first_attribute("min");
-					//spawner.maxSpawnRate = pNodeI->first_attribute("max");
+					spawner->SetMinSpawnTime(std::stof(pNodeI->first_attribute("min")->value()));
+					spawner->SetMaxSpawnTime(std::stof(pNodeI->first_attribute("max")->value()));
 					break;
-				case 2:
-					//spawner.crocodileChance = pNodeI->value();
+				case 1:
+					spawner->SetVariantChance(std::stoi(pNodeI->value()));
 					break;
 				}
 				i++;
 			}
+			spawners.push_back(spawner);
+		}
 				break;
 		case RowTypes::ROAD:
-			Spawner spawner;
-			for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
-				switch (i) {
-				case 0:
-					//spawner.object = pNodeI->first_attribute("carID");
-				case 1:
-					//spawner.minSpawnRate = pNodeI->first_attribute("min");
-					//spawner.maxSpawnRate = pNodeI->first_attribute("max");
-					break;
-				case 2:
-					//spawner.speed = pNodeI->value();
-					break;
-				}
-				i++;
-			}
+			////Spawner spawner;
+			//for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
+			//	switch (i) {
+			//	case 0:
+			//		//spawner.object = pNodeI->first_attribute("carID");
+			//	case 1:
+			//		//spawner.minSpawnRate = pNodeI->first_attribute("min");
+			//		//spawner.maxSpawnRate = pNodeI->first_attribute("max");
+			//		break;
+			//	case 2:
+			//		//spawner.speed = pNodeI->value();
+			//		break;
+			//	}
+			//	i++;
+			//}
 			break;
 		case RowTypes::SAFEZONE:
 			break;
 		}
-		*/
+		
 		InsertTiles(ConvertStrToRowType(pNode->name()), 11, y);
 
 		y++;
 	}
+	InsertTiles(RowTypes::BORDER, 11, y);
 }
 
 GameplayScene::RowTypes GameplayScene::ConvertStrToRowType(std::string str)
@@ -123,6 +131,9 @@ void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 		else if (type == RowTypes::ROAD) {
 			tileType = 4;
 		}
+		else if (type == RowTypes::BORDER) {
+			tileType = 5;
+		}
 		else {
 			assert(-1);
 		}
@@ -140,11 +151,11 @@ void GameplayScene::Update()
 	}
 
 	for (int i = 0; i < objects.size(); i++) {
-		objects[i].Update();
+		objects[i]->Update();
 	}
 
 	for (int i = 0; i < ui.size(); i++) {
-		ui[i].Update();
+		ui[i]->Update();
 	}
 }
 
@@ -155,11 +166,11 @@ void GameplayScene::Render()
 	}
 
 	for (int i = 0; i < objects.size(); i++) {
-		objects[i].Render();
+		objects[i]->Render();
 	}
 
 	for (int i = 0; i < ui.size(); i++) {
-		ui[i].Render();
+		ui[i]->Render();
 	}
 }
 

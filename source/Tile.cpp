@@ -35,6 +35,9 @@ Tile::Tile(bool isLethal, int type)
 		source->x = 9;
 		source->y = 125;
 		break;
+	case 5: //BORDER
+		source->x = 9;
+		source->y = 125;
 	default:
 		assert(-1);
 		break;
