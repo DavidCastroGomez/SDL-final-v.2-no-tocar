@@ -70,19 +70,21 @@ void GameEngine::Run() {
 	while (isRunning) {
 		IM->Listen();
 
-		EH->HandleEvents();
+		//EH->HandleEvents();
 
 		isRunning = !IM->GetQuitEvent();
 
 		TM->Update();
 		SM->GetCurrentScene()->Update();
 
-		SDL_SetRenderDrawColor(RM->GetRenderer(), 255, 255, 255, 255);
+		if (TM->ShouldRenderFrame()) {
+			SDL_SetRenderDrawColor(RM->GetRenderer(), 255, 255, 255, 255);
 
-		SDL_RenderClear(RM->GetRenderer());
+			SDL_RenderClear(RM->GetRenderer());
 
-		SM->GetCurrentScene()->Render();
-		RM->RenderScreen();
+			SM->GetCurrentScene()->Render();
+			RM->RenderScreen();
+		}
 
 	}
 

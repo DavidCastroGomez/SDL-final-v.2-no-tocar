@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include <vector>
 #include <SDL.h>
 #include <string>
 #include <SDL_image.h>
@@ -8,6 +9,9 @@
 
 class GameObject : public Object
 {
+protected:
+	std::vector<ImageRenderer*> renderers;
+
 public:
 	
 	GameObject() = default;

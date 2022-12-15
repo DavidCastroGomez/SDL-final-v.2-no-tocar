@@ -23,7 +23,7 @@ RendererManager::RendererManager(int width, int heigth, Uint32 flags)
 RendererManager* RendererManager::GetInstance()
 {
 	if (instance == nullptr) {
-		instance = new RendererManager(224, 240, SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
+		instance = new RendererManager(176, 240, SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
 	}
 	return instance;
 }

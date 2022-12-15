@@ -9,13 +9,14 @@
 #include "../dependencies/XML/rapidxml_print.hpp"
 #include <fstream>
 #include <sstream>
+#include "RendererManager.h"
 class GameplayScene : public Scene
 {
 private:
     std::vector<Spawner*> spawners;
     std::vector<Tile*> tiles;
     bool endPosition[5];
-    //Frog player;
+    Frog* player;
     static int level;
     int score;
 

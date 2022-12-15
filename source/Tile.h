@@ -9,6 +9,5 @@ public:
 	void Render() override;
 private:
 	bool isLethal;
-	ImageRenderer* image;
 	
 };

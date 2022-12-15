@@ -9,12 +9,12 @@ class TimeManager
 private:
 	float deltaTime;
 	static float lastDeltaTime;
+	static float lastRenderTime;
 	static TimeManager* instance;
 
 	TimeManager() = default;
 
 public:
-	static const float FPS;
 	static const float tick;
 	static float totalTime;
 
@@ -22,5 +22,6 @@ public:
 	void Update();
 	float GetCurrentTime();
 	float GetDeltaTime();
+	bool ShouldRenderFrame();
 };
 

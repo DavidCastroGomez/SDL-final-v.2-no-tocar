@@ -58,17 +58,18 @@ Tile::Tile(bool isLethal, int type)
 		center.y = 0,
 	};
 
-	image = new ImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, source, center);
+	ImageRenderer* image = new ImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, source, center);
 	image->Load("./resources/assets.png");
+	renderers.push_back(image);
 }
 
 void Tile::Update()
 {
-	image->SetPosition(transform.position);
-	image->Update();
+	renderers[0]->SetPosition(transform.position);
+	renderers[0]->Update();
 }
 
 void Tile::Render()
 {
-	image->Render();
+	renderers[0]->Render();
 }
