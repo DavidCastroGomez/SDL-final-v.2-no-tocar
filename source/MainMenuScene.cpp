@@ -3,11 +3,11 @@
 void MainMenuScene::Update()
 {
 	for (int i = 0; i < objects.size(); i++) {
-		objects[i].Update();
+		objects[i]->Update();
 	}
 
 	for (int i = 0; i < ui.size(); i++) {
-		ui[i].Update();
+		ui[i]->Update();
 	}
 
 }
@@ -15,11 +15,11 @@ void MainMenuScene::Update()
 void MainMenuScene::Render()
 {
 	for (int i = 0; i < objects.size(); i++) {
-		objects[i].Render();
+		objects[i]->Render();
 	}
 
 	for (int i = 0; i < ui.size(); i++) {
-		ui[i].Render();
+		ui[i]->Render();
 	}
 }
 

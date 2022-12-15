@@ -6,8 +6,8 @@
 
 class Scene {
 protected:
-	std::vector<Object> ui;
-	std::vector<Object> objects;
+	std::vector<Object*> ui;
+	std::vector<Object*> objects;
 public:
 	virtual void Update() = 0;
 	virtual void Render() = 0;

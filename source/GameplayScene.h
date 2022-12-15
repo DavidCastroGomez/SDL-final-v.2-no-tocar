@@ -12,7 +12,7 @@
 class GameplayScene : public Scene
 {
 private:
-    std::vector<Spawner> spawner;
+    std::vector<Spawner*> spawners;
     std::vector<Tile*> tiles;
     bool endPosition[5];
     //Frog player;
@@ -21,7 +21,7 @@ private:
 
     void LoadLevelFromFile(std::string path);
 
-    enum RowTypes { ENDZONE, LOGRIVER, TURTLESRIVER, SAFEZONE, ROAD , NONE};
+    enum RowTypes { ENDZONE, LOGRIVER, TURTLESRIVER, SAFEZONE, ROAD, BORDER, NONE};
 
     RowTypes ConvertStrToRowType(std::string path);
     void InsertTiles(RowTypes type, int numOfTiles, int y);
