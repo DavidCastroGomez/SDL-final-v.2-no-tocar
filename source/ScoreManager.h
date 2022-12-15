@@ -1,6 +1,6 @@
 #pragma once
 
-#define SM ScoreManager::GetInstance()
+#define PM ScoreManager::GetInstance()
 
 class ScoreManager
 {

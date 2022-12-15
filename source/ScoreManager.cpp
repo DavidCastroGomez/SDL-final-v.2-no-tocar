@@ -1,5 +1,7 @@
 #include "ScoreManager.h"
 
+ScoreManager* ScoreManager::instance = nullptr;
+
 ScoreManager::ScoreManager(int startingScore)
 {
 	score = startingScore;
