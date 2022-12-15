@@ -8,7 +8,7 @@ public:
 	Crocodile(float openMouthDuration, float closedMouthDuration, float elapsedTime);
 	void Update() override;
 	void Render() override;
-	bool IsMouthOpened();
+	bool IsMouthOpen();
 private:
 	float openMouthDuration, closedMouthDuration, elapsedTime;
 	bool isMouthOpen;

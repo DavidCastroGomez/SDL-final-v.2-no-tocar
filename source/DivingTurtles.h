@@ -7,7 +7,9 @@ public:
 	DivingTurtles(float diveDuration, float surfaceDuration, int length);
 	void Update() override;
 	void Render() override;
-	bool isDiving();
+	bool IsDiving();
 private:
+	bool isDiving;
 	float diveDuration, surfaceDuration, elapsedTime;
+	int length;
 };

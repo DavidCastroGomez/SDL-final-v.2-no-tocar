@@ -10,18 +10,18 @@ Crocodile::Crocodile(float openMouthDuration, float closedMouthDuration, float e
 
 void Crocodile::Update()
 {
-	if (TM->GetCurrentTime() - TM->GetDeltaTime() > openMouthDuration && isMouthOpen)
+	if (TM->GetCurrentTime() - TM->GetDeltaTime() > openMouthDuration && IsMouthOpen())
 	{
 		isMouthOpen = false;
 	}
-	else if (TM->GetCurrentTime() - TM->GetDeltaTime() > closedMouthDuration && !isMouthOpen)
+	else if (TM->GetCurrentTime() - TM->GetDeltaTime() > closedMouthDuration && !IsMouthOpen())
 	{
 		isMouthOpen = true;
 	}
 	transform.position.x += 8 * TM->GetDeltaTime();
 }
 
-bool Crocodile::IsMouthOpened()
+bool Crocodile::IsMouthOpen()
 {
 	return isMouthOpen;
 }
