@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL_image.h>
 #include "GameObject.h"
+#include "TimeManager.h"
 class Log : public GameObject
 {
 public:
