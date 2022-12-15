@@ -204,6 +204,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\MainMenuScene.cpp" />
     <ClCompile Include="source\SceneManager.cpp" />
+    <ClCompile Include="source\ScoreManager.cpp" />
     <ClCompile Include="source\Snake.cpp" />
     <ClCompile Include="source\Spawner.cpp" />
     <ClCompile Include="source\SplashSceneScene.cpp" />
@@ -239,6 +240,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\GameObject.h" />
     <ClInclude Include="source\MainMenuScene.h" />
+    <ClInclude Include="source\ScoreManager.h" />
     <ClInclude Include="source\Snake.h" />
     <ClInclude Include="source\Spawner.h" />
     <ClInclude Include="source\SplashSceneScene.h" />
