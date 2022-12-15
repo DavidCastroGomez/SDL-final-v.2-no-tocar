@@ -72,21 +72,30 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 		}
 				break;
 		case RowTypes::ROAD:
-			////Spawner spawner;
-			//for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
-			//	switch (i) {
-			//	case 0:
-			//		//spawner.object = pNodeI->first_attribute("carID");
-			//	case 1:
-			//		//spawner.minSpawnRate = pNodeI->first_attribute("min");
-			//		//spawner.maxSpawnRate = pNodeI->first_attribute("max");
-			//		break;
-			//	case 2:
-			//		//spawner.speed = pNodeI->value();
-			//		break;
-			//	}
-			//	i++;
-			//}
+		{
+			Spawner* spawner = new Spawner("car");
+			spawner->SetCarId(pNode->first_attribute("carID")->value());
+			for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
+				switch (i) {
+				case 0:
+					spawner->SetMinSpawnTime(std::stof(pNodeI->first_attribute("min")->value()));
+					spawner->SetMaxSpawnTime(std::stof(pNodeI->first_attribute("max")->value()));
+					break;
+				case 1:
+					spawner->SetStartVelocity(std::stoi(pNodeI->value()));
+					break;
+				}
+				i++;
+			}
+			if (y % 2 == 0) {
+				spawner->SetStartPosition(Vector2(13 * 16, y * 16));
+			}
+			else {
+				spawner->SetStartPosition(Vector2(-2 * 16, y * 16));
+			}
+			
+			spawners.push_back(spawner);
+		}
 			break;
 		case RowTypes::SAFEZONE:
 			break;
@@ -124,6 +133,9 @@ void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 		}
 		else if (type == RowTypes::ENDZONE) {
 			tileType = i % 2;
+			if (tileType == 1) {
+
+			}
 		}
 		else if (type == RowTypes::SAFEZONE) {
 			tileType = 3;
@@ -146,6 +158,14 @@ void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 
 void GameplayScene::Update()
 {
+	for (int i = 0; i < spawners.size(); i++)
+	{
+		GameObject* spawned = spawners[i]->Update();
+		if (spawned != nullptr) {
+			objects.push_back(spawned);
+		}
+	}
+
 	for (int i = 0; i < tiles.size(); i++) {
 		tiles[i]->Update();
 	}

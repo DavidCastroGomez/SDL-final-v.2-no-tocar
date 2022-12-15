@@ -27,17 +27,19 @@ public:
 	void SetMaxLength(float f);
 
 	void SetStartPosition(Vector2 pos);
-	void SetStartVelocity(Vector2 vel);
+	void SetStartVelocity(int vel);
 
 	void SetVariantChance(int i);
 	void SetSnakeChance(int i);
+	void SetCarId(std::string id);
 
 private:
 	std::string id;
 	std::string carId;
+	int startVelocity;
 	float maxSpawnTime, minSpawnTime, elapsedTime;
 	int minLength, maxLength;
-	Vector2 startPosition, startVelocity;
+	Vector2 startPosition;
 
 	int spawnVariantChance, spawnSnakeChance;
 

@@ -24,24 +24,36 @@ GameObject* Spawner::Update()
 
 GameObject* Spawner::Spawn()
 {
+
 	if (id == "log") {
+		int length;
+		do {
+			length = (rand() % maxLength) + 1;
+		} while (length <= minLength);
+
 		if (rand() % 100 < spawnVariantChance) {
-			//summon croc
+			//Crocodile* croc
 		}
 		else {
-			//summon log
+			Log* log = new Log(length);
+			return log;
 		}
 	}
 	else if (id == "turtle") {
+		int length;
+		do {
+			length = (rand() % maxLength) + 1;
+		} while (length < minLength);
+
 		if (rand() % 100 < spawnVariantChance) {
 			//summon diveturt
 		}
 		else {
-			//summon turt
+			Turtles* turtle = new Turtles(length);
 		}
 	}
 	else if (id == "car") {
-		//carShit
+		Car* car = new Car(carId);
 	}
 	return nullptr;
 }
@@ -71,7 +83,7 @@ void Spawner::SetStartPosition(Vector2 pos)
 	this->startPosition = pos;
 }
 
-void Spawner::SetStartVelocity(Vector2 vel)
+void Spawner::SetStartVelocity(int vel)
 {
 	this->startVelocity = vel;
 }
@@ -84,4 +96,9 @@ void Spawner::SetVariantChance(int i)
 void Spawner::SetSnakeChance(int i)
 {
 	this->spawnSnakeChance = i;
+}
+
+void Spawner::SetCarId(std::string id)
+{
+	this->carId = id;
 }
