@@ -17,8 +17,8 @@ void Frog::Respawn()
 void Frog::AddMovement(Vector2 dir)
 {
 	moving = true;
-	transform.position.x += dir.x;
-	transform.position.y += dir.y;
+	transform.position.x += dir.x * TM->GetDeltaTime();
+	transform.position.y += dir.y * TM->GetDeltaTime();
 	currentRow = transform.position.x / 16;
 	if (currentRow > lastRow)
 	{
