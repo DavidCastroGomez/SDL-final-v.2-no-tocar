@@ -13,6 +13,8 @@ void GameEngine::Init() {
 
 	GameplayScene* gameS = new GameplayScene();
 
+	srand(time(NULL));
+
 	SM->AddScene("Game", gameS);
 	SM->SetScene("Game");
 

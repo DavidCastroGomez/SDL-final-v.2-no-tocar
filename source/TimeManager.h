@@ -7,9 +7,9 @@
 class TimeManager
 {
 private:
-	float deltaTime;
-	static float lastDeltaTime;
-	static float lastRenderTime;
+	static float deltaTime;
+	static Uint64 end;
+	static Uint64 lastRenderTime;
 	static TimeManager* instance;
 
 	TimeManager() = default;

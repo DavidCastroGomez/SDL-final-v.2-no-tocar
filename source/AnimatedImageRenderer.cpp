@@ -15,6 +15,9 @@ AnimatedImageRenderer::AnimatedImageRenderer(SDL_Color color, float alpha, Vecto
 	this->currentFrameTime = 0;
 
 	this->cols = cols;
+
+	this->initialX = sourceRect->x;
+	this->initialY = sourceRect->y;
 }
 
 void AnimatedImageRenderer::Load(std::string path)
@@ -31,7 +34,7 @@ void AnimatedImageRenderer::Update()
 
 	currentFrameTime = ((currentFrameTime / frameTime) - (float)frameIncrement) * frameTime;
 
-	std::cout << currentFrameTime << std::endl;
+	//std::cout << currentFrameTime << std::endl;
 
 	currentFrame += frameIncrement;
 
@@ -45,8 +48,8 @@ void AnimatedImageRenderer::Update()
 	int frameX = currentFrame % cols;
 	int frameY = currentFrame / cols;
 
-	sourceRect->x = sourceRect->w * frameX;
-	sourceRect->y = sourceRect->h * frameY;
+	sourceRect->x = initialX + sourceRect->w * frameX;
+	sourceRect->y = initialY + sourceRect->h * frameY;
 }
 
 void AnimatedImageRenderer::Render()

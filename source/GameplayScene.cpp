@@ -29,7 +29,7 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 		case RowTypes::LOGRIVER:
 		{
 			Spawner* spawner = new Spawner("log");
-			spawner->SetStartPosition(Vector2(-2*16, y));
+			spawner->SetStartPosition(Vector2(-3*16, y*16));
 			spawner->SetMinLength(std::stof(pNode->first_attribute("minLength")->value()));
 			spawner->SetMaxLength(std::stof(pNode->first_attribute("maxLength")->value()));
 			for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
@@ -74,7 +74,18 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 		case RowTypes::ROAD:
 		{
 			Spawner* spawner = new Spawner("car");
-			spawner->SetCarId(pNode->first_attribute("carID")->value());
+
+			std::string carId = pNode->first_attribute("carID")->value();
+
+			spawner->SetCarId(carId);
+
+			if (carId == "racing0" || carId == "truck0" || carId == "family0") {
+				spawner->SetStartPosition(Vector2(13 * 16, y * 16));
+			}
+			else {
+				spawner->SetStartPosition(Vector2(-2 * 16, y * 16));
+			}
+
 			for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
 				switch (i) {
 				case 0:
@@ -86,13 +97,7 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 					break;
 				}
 				i++;
-			}
-			if (y % 2 == 0) {
-				spawner->SetStartPosition(Vector2(13 * 16, y * 16));
-			}
-			else {
-				spawner->SetStartPosition(Vector2(-2 * 16, y * 16));
-			}
+			}			
 			
 			spawners.push_back(spawner);
 		}

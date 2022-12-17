@@ -14,7 +14,7 @@ GameObject* Spawner::Update()
 	}
 
 	if (elapsedTime > minSpawnTime) {
-		if (rand() % 3 > elapsedTime) {
+		if (((rand() + (int)startPosition.y) % 2000) == 0) {
 			return Spawn();
 		}
 	}
@@ -36,6 +36,8 @@ GameObject* Spawner::Spawn()
 		}
 		else {
 			Log* log = new Log(length);
+			log->SetPosition(startPosition);
+			elapsedTime = 0.f;
 			return log;
 		}
 	}
@@ -45,16 +47,26 @@ GameObject* Spawner::Spawn()
 			length = (rand() % maxLength) + 1;
 		} while (length < minLength);
 
-		if (rand() % 100 < spawnVariantChance) {
-			//summon diveturt
+		if (rand() % 1 < spawnVariantChance) {
+			DivingTurtles* divingTurtles = new DivingTurtles(1.5,3);
+			divingTurtles->SetPosition(startPosition);
+			elapsedTime = 0.f;
+			return divingTurtles;
 		}
 		else {
-			Turtles* turtle = new Turtles(length);
+			Turtles* turtle = new Turtles();
+			turtle->SetPosition(startPosition);
+			elapsedTime = 0.f;
+			return turtle;
 		}
 	}
 	else if (id == "car") {
-		Car* car = new Car(carId);
+		Car* car = new Car(carId, startVelocity);
+		car->SetPosition(startPosition);
+		elapsedTime = 0.f;
+		return car;
 	}
+
 	return nullptr;
 }
 

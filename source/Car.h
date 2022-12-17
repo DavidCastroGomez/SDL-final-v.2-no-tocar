@@ -5,9 +5,10 @@
 class Car : public GameObject
 {
 public:
-	Car(std::string spritePath);
+	Car(std::string carId, int speed);
 	void Update() override;
 	void Render() override;
 private:
-	std::string spritePath;
+	std::string carId;
+	int speed;
 };
