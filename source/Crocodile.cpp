@@ -21,6 +21,10 @@ void Crocodile::Update()
 	transform.position.x += 8 * TM->GetDeltaTime();
 }
 
+void Crocodile::Render()
+{
+}
+
 bool Crocodile::IsMouthOpen()
 {
 	return isMouthOpen;

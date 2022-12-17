@@ -4,7 +4,7 @@
 class Turtles : public GameObject
 {
 public:
-	Turtles(int length);
+	Turtles();
 	virtual void Update() override;
 	virtual void Render() override;
 private:

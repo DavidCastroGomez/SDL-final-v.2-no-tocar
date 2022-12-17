@@ -3,23 +3,25 @@
 TimeManager* TimeManager::instance = nullptr;
 
 const float TimeManager::tick = 1/60.f;
-float TimeManager::lastDeltaTime = 0.f;
-float TimeManager::lastRenderTime = 0.f;
+float TimeManager::deltaTime = 0.f;
+Uint64 TimeManager::end = 0;
+Uint64 TimeManager::lastRenderTime = 0;
 float TimeManager::totalTime = 0.f;
 
 TimeManager* TimeManager::GetInstance()
 {
     if (instance == nullptr) {
         instance = new TimeManager();
+        end = SDL_GetPerformanceCounter();
     }
-
     return instance;
 }
 
 void TimeManager::Update()
 {
-    deltaTime = (float)(SDL_GetPerformanceCounter() - lastDeltaTime) / SDL_GetPerformanceFrequency();
-    lastDeltaTime = SDL_GetPerformanceCounter();
+    deltaTime = (SDL_GetPerformanceCounter() - end) / (float)SDL_GetPerformanceFrequency();
+    std::cout << deltaTime << std::endl;
+    end = SDL_GetPerformanceCounter();
     totalTime += deltaTime;
 }
 
@@ -34,8 +36,8 @@ float TimeManager::GetDeltaTime()
 }
 
 bool TimeManager::ShouldRenderFrame() {
-    if (lastDeltaTime - lastRenderTime > tick) {
-        lastRenderTime = lastDeltaTime;
+    if (end - lastRenderTime > tick) {
+        lastRenderTime = end;
         return true;
     }
     return false;

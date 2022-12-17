@@ -12,6 +12,7 @@ private:
     float frameTime;
     float currentFrameTime;
     int cols;
+    int initialX, initialY;
 
 
 public:

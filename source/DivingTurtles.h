@@ -1,10 +1,10 @@
 #pragma once
 #include <SDL_image.h>
 #include "Turtles.h"
-class DivingTurtles : private Turtles
+class DivingTurtles : public Turtles
 {
 public:
-	DivingTurtles(float diveDuration, float surfaceDuration, int length);
+	DivingTurtles(float diveDuration, float surfaceDuration);
 	void Update() override;
 	void Render() override;
 	bool IsDiving();
