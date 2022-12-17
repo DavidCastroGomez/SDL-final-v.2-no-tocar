@@ -183,6 +183,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Crocodile.cpp" />
     <ClCompile Include="source\EventsHandler.cpp" />
     <ClCompile Include="source\Car.cpp" />
     <ClCompile Include="source\DivingTurtles.cpp" />
