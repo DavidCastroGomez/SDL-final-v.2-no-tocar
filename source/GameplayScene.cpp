@@ -196,10 +196,13 @@ void GameplayScene::Render()
 
 void GameplayScene::OnEnter()
 {
-	/*
-	* player = new Frog();
-	* Frog.transform.SetPosition(RM->windowWidth / 2, 0);
-	*/
+	
+	player = new Frog();
+	
+	player->SetPosition(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 16));
+
+	objects.push_back(player);
+	
 	LoadLevelFromFile("./resources/level.xml");
 }
 
