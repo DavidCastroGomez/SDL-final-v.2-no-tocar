@@ -14,6 +14,7 @@ Car::Car(std::string carId, int speed)
 	if (carId == "racing0") {
 
 		source->x = 48;
+		this->speed = -this->speed;
 		
 	}
 	else if (carId == "farming0") {
@@ -22,9 +23,11 @@ Car::Car(std::string carId, int speed)
 	else if (carId == "truck0") {
 		source->x = 80;
 		source->w = 32;
+		this->speed = -this->speed;
 	}
 	else if (carId == "family0") {
 		source->x = 112;
+		this->speed = -this->speed;
 	}
 	else if (carId == "racing1") {
 		source->x = 128;
@@ -57,14 +60,7 @@ Car::Car(std::string carId, int speed)
 
 void Car::Update()
 {
-	if (carId == "racing0" || carId == "truck0" || carId == "family0") {
-		transform.position.x -= speed * TM->GetDeltaTime();
-	}
-	else {
-		transform.position.x += speed * TM->GetDeltaTime();
-	}
-	
-
+	transform.position.x += speed * TM->GetDeltaTime();
 
 	renderers[0]->SetPosition(transform.position);
 	renderers[0]->Update();

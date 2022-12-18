@@ -33,6 +33,9 @@ Log::Log(int length)
 void Log::Update()
 {
 	transform.position.x += 50 * TM->GetDeltaTime();
+
+
+
 	renderers[0]->SetPosition(transform.position);
 	renderers[0]->Update();
 }

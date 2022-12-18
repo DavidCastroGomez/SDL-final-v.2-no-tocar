@@ -5,7 +5,7 @@
 class Crocodile : public GameObject
 {
 public:
-	Crocodile(float openMouthDuration, float closedMouthDuration, float elapsedTime);
+	Crocodile(float openMouthDuration, float closedMouthDuration);
 	void Update() override;
 	void Render() override;
 	bool IsMouthOpen();

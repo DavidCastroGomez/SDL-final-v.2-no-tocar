@@ -165,9 +165,11 @@ void GameplayScene::Update()
 {
 	for (int i = 0; i < spawners.size(); i++)
 	{
-		GameObject* spawned = spawners[i]->Update();
+		std::vector<GameObject*>* spawned = spawners[i]->Update();
 		if (spawned != nullptr) {
-			objects.push_back(spawned);
+			for (int i = 0; i < spawned->size(); i++) {
+				objects.push_back(spawned->at(i));
+			}
 		}
 	}
 
@@ -177,6 +179,10 @@ void GameplayScene::Update()
 
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i]->Update();
+		if (objects[i]->GetTransform().position.x < -5 * 16 || objects[i]->GetTransform().position.x > 20 * 16) {
+			delete objects[i];
+			objects.erase(objects.begin() + i);
+		}
 	}
 
 	for (int i = 0; i < ui.size(); i++) {

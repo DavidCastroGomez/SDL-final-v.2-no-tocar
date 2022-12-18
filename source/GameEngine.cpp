@@ -80,7 +80,6 @@ void GameEngine::Run() {
 		SM->GetCurrentScene()->Update();
 
 		if (TM->ShouldRenderFrame()) {
-			SDL_SetRenderDrawColor(RM->GetRenderer(), 255, 255, 255, 255);
 
 			SDL_RenderClear(RM->GetRenderer());
 

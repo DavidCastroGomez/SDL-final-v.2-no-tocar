@@ -11,14 +11,15 @@
 #include "Tile.h"
 #include "Turtles.h"
 #include "TimeManager.h"
+#include "Crocodile.h"
 #include <string>
 class Spawner
 {
 public:
 	Spawner(std::string id); //No fer templates
 
-	GameObject* Update();
-	GameObject* Spawn();
+	std::vector<GameObject*>* Update();
+	std::vector<GameObject*>* Spawn();
 
 	void SetMaxSpawnTime(float f);
 	void SetMinSpawnTime(float f);

@@ -6,7 +6,7 @@ Spawner::Spawner(std::string id)
 	this->elapsedTime = 0.f;
 }
 
-GameObject* Spawner::Update()
+std::vector<GameObject*>* Spawner::Update()
 {
 	elapsedTime += TM->GetDeltaTime();
 	if (elapsedTime >= maxSpawnTime) {
@@ -22,23 +22,25 @@ GameObject* Spawner::Update()
 	return nullptr;
 }
 
-GameObject* Spawner::Spawn()
+std::vector<GameObject*>* Spawner::Spawn()
 {
+	std::vector<GameObject*>* spawned = new std::vector<GameObject*>;
 
 	if (id == "log") {
 		int length;
 		do {
 			length = (rand() % maxLength) + 1;
-		} while (length <= minLength);
+		} while (length < minLength);
 
 		if (rand() % 100 < spawnVariantChance) {
-			//Crocodile* croc
+			Crocodile* croc = new Crocodile(1, 1);
+			croc->SetPosition(startPosition);
+			spawned->push_back(croc);
 		}
 		else {
 			Log* log = new Log(length);
 			log->SetPosition(startPosition);
-			elapsedTime = 0.f;
-			return log;
+			spawned->push_back(log);
 		}
 	}
 	else if (id == "turtle") {
@@ -47,27 +49,32 @@ GameObject* Spawner::Spawn()
 			length = (rand() % maxLength) + 1;
 		} while (length < minLength);
 
-		if (rand() % 1 < spawnVariantChance) {
-			DivingTurtles* divingTurtles = new DivingTurtles(1.5,3);
-			divingTurtles->SetPosition(startPosition);
-			elapsedTime = 0.f;
-			return divingTurtles;
+		if (rand() % 100 < spawnVariantChance) {
+			for (int i = 0; i < length; i++) {
+				DivingTurtles* divingTurtles = new DivingTurtles(1.5, 3);
+				Vector2 newStartPos(startPosition.x + i * 16, startPosition.y);
+				divingTurtles->SetPosition(newStartPos);
+				spawned->push_back(divingTurtles);
+			}
+
 		}
 		else {
-			Turtles* turtle = new Turtles();
-			turtle->SetPosition(startPosition);
-			elapsedTime = 0.f;
-			return turtle;
+			for (int i = 0; i < length; i++) {
+				Turtles* turtle = new Turtles();
+				Vector2 newStartPos(startPosition.x + i * 16, startPosition.y);
+				turtle->SetPosition(newStartPos);
+				spawned->push_back(turtle);
+			}
 		}
 	}
 	else if (id == "car") {
 		Car* car = new Car(carId, startVelocity);
 		car->SetPosition(startPosition);
-		elapsedTime = 0.f;
-		return car;
+		spawned->push_back(car);
 	}
 
-	return nullptr;
+	elapsedTime = 0.f;
+	return spawned;
 }
 
 void Spawner::SetMaxSpawnTime(float f)
