@@ -4,9 +4,14 @@ Spawner::Spawner(std::string id)
 {
 	this->id = id;
 	this->elapsedTime = 0.f;
+
+	this->lastRow = false;
+	this->canSpawnEnd = true;
+
+	this->food = nullptr;
 }
 
-GameObject* Spawner::Update()
+std::vector<GameObject*>* Spawner::Update()
 {
 	elapsedTime += TM->GetDeltaTime();
 	if (elapsedTime >= maxSpawnTime) {
@@ -22,23 +27,38 @@ GameObject* Spawner::Update()
 	return nullptr;
 }
 
-GameObject* Spawner::Spawn()
+std::vector<GameObject*>* Spawner::Spawn()
 {
+	std::vector<GameObject*>* spawned = new std::vector<GameObject*>;
 
 	if (id == "log") {
 		int length;
 		do {
 			length = (rand() % maxLength) + 1;
-		} while (length <= minLength);
+		} while (length < minLength);
 
-		if (rand() % 100 < spawnVariantChance) {
-			//Crocodile* croc
+		if (rand() % 99 < spawnVariantChance) {
+			Crocodile* croc = new Crocodile(1, 1);
+			croc->SetPosition(startPosition);
+			spawned->push_back(croc);
 		}
 		else {
 			Log* log = new Log(length);
 			log->SetPosition(startPosition);
-			elapsedTime = 0.f;
-			return log;
+			spawned->push_back(log);
+
+			if (rand() % 99 < spawnSnakeChance) {
+				Snake* snake = new Snake(log);
+				snake->SetPosition(startPosition);
+				spawned->push_back(snake);
+			}
+			else {
+				if (food == nullptr && lastRow) {
+					food = new Food(log);
+					food->SetPosition(startPosition);
+					spawned->push_back(food);
+				}
+			}
 		}
 	}
 	else if (id == "turtle") {
@@ -47,27 +67,51 @@ GameObject* Spawner::Spawn()
 			length = (rand() % maxLength) + 1;
 		} while (length < minLength);
 
-		if (rand() % 1 < spawnVariantChance) {
-			DivingTurtles* divingTurtles = new DivingTurtles(1.5,3);
-			divingTurtles->SetPosition(startPosition);
-			elapsedTime = 0.f;
-			return divingTurtles;
+		if (rand() % 99 < spawnVariantChance) {
+			for (int i = 0; i < length; i++) {
+				DivingTurtles* divingTurtles = new DivingTurtles(1.5, 3);
+				Vector2 newStartPos(startPosition.x + i * 16, startPosition.y);
+				divingTurtles->SetPosition(newStartPos);
+				spawned->push_back(divingTurtles);
+			}
+
 		}
 		else {
-			Turtles* turtle = new Turtles();
-			turtle->SetPosition(startPosition);
-			elapsedTime = 0.f;
-			return turtle;
+			for (int i = 0; i < length; i++) {
+				Turtles* turtle = new Turtles();
+				Vector2 newStartPos(startPosition.x + i * 16, startPosition.y);
+				turtle->SetPosition(newStartPos);
+				spawned->push_back(turtle);
+			}
 		}
 	}
 	else if (id == "car") {
 		Car* car = new Car(carId, startVelocity);
 		car->SetPosition(startPosition);
-		elapsedTime = 0.f;
-		return car;
+		spawned->push_back(car);
+	}
+	else if (id == "end" && canSpawnEnd) {
+		canSpawnEnd = false;
+		int i = 0;
+		do {
+			i = rand() % 5;
+		} while (!&endPositions[i]);
+
+		Vector2 pos = Vector2(startPosition.x + i * 32, startPosition.y);
+		if (rand() % 100 < spawnVariantChance) {
+			EndTileItem* endItem = new EndTileItem(1, true, this);
+			endItem->SetPosition(pos);
+			spawned->push_back(endItem);
+		}
+		else {
+			EndTileItem* endItem = new EndTileItem(5, false, this);
+			endItem->SetPosition(pos);
+			spawned->push_back(endItem);
+		}
 	}
 
-	return nullptr;
+	elapsedTime = 0.f;
+	return spawned;
 }
 
 void Spawner::SetMaxSpawnTime(float f)
@@ -114,3 +158,23 @@ void Spawner::SetCarId(std::string id)
 {
 	this->carId = id;
 }
+
+void Spawner::SetCanSpawn(bool b)
+{
+	canSpawnEnd = b;
+	if (canSpawnEnd) {
+		elapsedTime = 0;
+	}
+}
+
+void Spawner::SetLastRow(bool b)
+{
+	lastRow = b;
+}
+
+void Spawner::SetEndPositions(bool* b, int pos)
+{
+	this->endPositions[pos] = b;
+}
+
+

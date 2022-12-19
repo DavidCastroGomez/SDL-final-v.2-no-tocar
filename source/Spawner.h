@@ -11,14 +11,15 @@
 #include "Tile.h"
 #include "Turtles.h"
 #include "TimeManager.h"
+#include "Crocodile.h"
 #include <string>
 class Spawner
 {
 public:
 	Spawner(std::string id); //No fer templates
 
-	GameObject* Update();
-	GameObject* Spawn();
+	std::vector<GameObject*>* Update();
+	std::vector<GameObject*>* Spawn();
 
 	void SetMaxSpawnTime(float f);
 	void SetMinSpawnTime(float f);
@@ -32,6 +33,10 @@ public:
 	void SetVariantChance(int i);
 	void SetSnakeChance(int i);
 	void SetCarId(std::string id);
+	void SetCanSpawn(bool b);
+
+	void SetLastRow(bool b);
+	void SetEndPositions(bool* b, int pos);
 
 private:
 	std::string id;
@@ -42,5 +47,10 @@ private:
 	Vector2 startPosition;
 
 	int spawnVariantChance, spawnSnakeChance;
+	bool canSpawnEnd;
+	bool lastRow;
+	bool* endPositions[5];
+
+	GameObject* food;
 
 };

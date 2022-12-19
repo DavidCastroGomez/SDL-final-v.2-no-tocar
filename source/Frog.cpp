@@ -4,7 +4,6 @@ Frog::Frog()
 {
 	moving = false;
 	hasFood = false;
-	food = nullptr;
 	currentRow = 1;
 	lastRow = currentRow;
 
@@ -66,13 +65,11 @@ void Frog::AddScore(int score)
 	PM->AddScore(score);
 }
 
-void Frog::AddFood(Food* food)
+void Frog::AddFood()
 {
-	this->food = food;
-	if (this->food != nullptr)
+	if (!hasFood)
 	{
 		hasFood = true;
-		this->food->AttachToPlayer();
 		AddScore(100);
 	}
 }
