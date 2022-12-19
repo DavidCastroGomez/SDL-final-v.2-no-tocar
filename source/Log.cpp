@@ -15,7 +15,7 @@ Log::Log(int length)
 
 	target->x = 0;
 	target->y = 0;
-	target->w = 16 * length;
+	target->w = 16 * this->length;
 	target->h = 16;
 
 	SDL_Color color = { 255, 255, 255 };
@@ -28,6 +28,8 @@ Log::Log(int length)
 	ImageRenderer* idle = new ImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, source, center);
 	idle->Load("./resources/assets2.png");
 	renderers.push_back(idle);
+
+	this->boundingBox = AABB(transform.position, Vector2(target->w, target->h));
 }
 
 void Log::Update()

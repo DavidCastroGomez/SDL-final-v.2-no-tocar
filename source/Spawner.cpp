@@ -32,7 +32,7 @@ std::vector<GameObject*>* Spawner::Spawn()
 			length = (rand() % maxLength) + 1;
 		} while (length < minLength);
 
-		if (rand() % 100 < spawnVariantChance) {
+		if (rand() % 99 < spawnVariantChance) {
 			Crocodile* croc = new Crocodile(1, 1);
 			croc->SetPosition(startPosition);
 			spawned->push_back(croc);
@@ -41,6 +41,12 @@ std::vector<GameObject*>* Spawner::Spawn()
 			Log* log = new Log(length);
 			log->SetPosition(startPosition);
 			spawned->push_back(log);
+
+			if (rand() % 99 < spawnSnakeChance) {
+				Snake* snake = new Snake(log);
+				snake->SetPosition(startPosition);
+				spawned->push_back(snake);
+			}
 		}
 	}
 	else if (id == "turtle") {
@@ -49,7 +55,7 @@ std::vector<GameObject*>* Spawner::Spawn()
 			length = (rand() % maxLength) + 1;
 		} while (length < minLength);
 
-		if (rand() % 100 < spawnVariantChance) {
+		if (rand() % 99 < spawnVariantChance) {
 			for (int i = 0; i < length; i++) {
 				DivingTurtles* divingTurtles = new DivingTurtles(1.5, 3);
 				Vector2 newStartPos(startPosition.x + i * 16, startPosition.y);
