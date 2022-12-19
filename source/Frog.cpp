@@ -82,12 +82,12 @@ void Frog::Update()
 		if (IM->CheckKeyState(SDLK_w, PRESSED))
 		{
 			dir.x = 0;
-			dir.y = 16;
+			dir.y = -64;
 		}
 		if (IM->CheckKeyState(SDLK_s, PRESSED))
 		{
 			dir.x = 0;
-			dir.y = -16;
+			dir.y = 16;
 		}
 		if (IM->CheckKeyState(SDLK_d, PRESSED))
 		{
