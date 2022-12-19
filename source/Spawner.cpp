@@ -78,6 +78,19 @@ std::vector<GameObject*>* Spawner::Spawn()
 		car->SetPosition(startPosition);
 		spawned->push_back(car);
 	}
+	else if (id == "end") {
+		Vector2 pos = Vector2(startPosition.x + (rand() % 5) * 16, startPosition.y);
+		if (rand() % 99 < spawnVariantChance) {
+			EndTileItem* endItem = new EndTileItem(5, false);
+			endItem->SetPosition(pos);
+			spawned->push_back(endItem);
+		}
+		else {
+			EndTileItem* endItem = new EndTileItem(5, false);
+			endItem->SetPosition(pos);
+			spawned->push_back(endItem);
+		}
+	}
 
 	elapsedTime = 0.f;
 	return spawned;

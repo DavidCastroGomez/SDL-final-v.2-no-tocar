@@ -25,7 +25,12 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 		switch (ConvertStrToRowType(pNode->name()))
 		{
 		case RowTypes::ENDZONE:
+		{
+			Spawner* spawner = new Spawner("end");
+			spawner->SetVariantChance(std::stoi(pNode->first_attribute("hazardChance")->value()));
+			spawners.push_back(spawner);
 			break;
+		}
 		case RowTypes::LOGRIVER:
 		{
 			Spawner* spawner = new Spawner("log");
@@ -131,6 +136,7 @@ GameplayScene::RowTypes GameplayScene::ConvertStrToRowType(std::string str)
 
 void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 {
+	bool endZoneFirstSpawner = true;
 	for (int i = 0; i < numOfTiles; i++) {
 		int tileType;
 		if (type == RowTypes::LOGRIVER || type == RowTypes::TURTLESRIVER) {
@@ -138,8 +144,11 @@ void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 		}
 		else if (type == RowTypes::ENDZONE) {
 			tileType = i % 2;
-			if (tileType == 1) {
-
+			if (tileType == 1 && endZoneFirstSpawner) {
+				spawners.back()->SetStartPosition(Vector2(i * 16, row * 16));
+				spawners.back()->SetMinSpawnTime(5);
+				spawners.back()->SetMaxSpawnTime(10);
+				endZoneFirstSpawner = false;
 			}
 		}
 		else if (type == RowTypes::SAFEZONE) {
