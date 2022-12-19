@@ -33,6 +33,10 @@ public:
 	void SetVariantChance(int i);
 	void SetSnakeChance(int i);
 	void SetCarId(std::string id);
+	void SetCanSpawn(bool b);
+
+	void SetLastRow(bool b);
+	void SetEndPositions(bool* b, int pos);
 
 private:
 	std::string id;
@@ -43,5 +47,10 @@ private:
 	Vector2 startPosition;
 
 	int spawnVariantChance, spawnSnakeChance;
+	bool canSpawnEnd;
+	bool lastRow;
+	bool* endPositions[5];
+
+	GameObject* food;
 
 };

@@ -4,6 +4,11 @@ Spawner::Spawner(std::string id)
 {
 	this->id = id;
 	this->elapsedTime = 0.f;
+
+	this->lastRow = false;
+	this->canSpawnEnd = true;
+
+	this->food = nullptr;
 }
 
 std::vector<GameObject*>* Spawner::Update()
@@ -47,6 +52,13 @@ std::vector<GameObject*>* Spawner::Spawn()
 				snake->SetPosition(startPosition);
 				spawned->push_back(snake);
 			}
+			else {
+				if (food == nullptr && lastRow) {
+					food = new Food(log);
+					food->SetPosition(startPosition);
+					spawned->push_back(food);
+				}
+			}
 		}
 	}
 	else if (id == "turtle") {
@@ -78,15 +90,21 @@ std::vector<GameObject*>* Spawner::Spawn()
 		car->SetPosition(startPosition);
 		spawned->push_back(car);
 	}
-	else if (id == "end") {
-		Vector2 pos = Vector2(startPosition.x + (rand() % 5) * 16, startPosition.y);
-		if (rand() % 99 < spawnVariantChance) {
-			EndTileItem* endItem = new EndTileItem(5, false);
+	else if (id == "end" && canSpawnEnd) {
+		canSpawnEnd = false;
+		int i = 0;
+		do {
+			i = rand() % 5;
+		} while (!&endPositions[i]);
+
+		Vector2 pos = Vector2(startPosition.x + i * 32, startPosition.y);
+		if (rand() % 100 < spawnVariantChance) {
+			EndTileItem* endItem = new EndTileItem(1, true, this);
 			endItem->SetPosition(pos);
 			spawned->push_back(endItem);
 		}
 		else {
-			EndTileItem* endItem = new EndTileItem(5, false);
+			EndTileItem* endItem = new EndTileItem(5, false, this);
 			endItem->SetPosition(pos);
 			spawned->push_back(endItem);
 		}
@@ -140,3 +158,23 @@ void Spawner::SetCarId(std::string id)
 {
 	this->carId = id;
 }
+
+void Spawner::SetCanSpawn(bool b)
+{
+	canSpawnEnd = b;
+	if (canSpawnEnd) {
+		elapsedTime = 0;
+	}
+}
+
+void Spawner::SetLastRow(bool b)
+{
+	lastRow = b;
+}
+
+void Spawner::SetEndPositions(bool* b, int pos)
+{
+	this->endPositions[pos] = b;
+}
+
+

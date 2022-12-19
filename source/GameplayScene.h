@@ -15,7 +15,7 @@ class GameplayScene : public Scene
 private:
     std::vector<Spawner*> spawners;
     std::vector<Tile*> tiles;
-    bool endPosition[5];
+    bool* endPosition[5];
     Frog* player;
     static int level;
     int score;

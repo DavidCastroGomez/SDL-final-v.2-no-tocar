@@ -19,6 +19,8 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 	int y = 0;
 	InsertTiles(RowTypes::BORDER, 11, y);
 	y++;
+
+	Spawner* lastLogRow = nullptr;
 	for (rapidxml::xml_node<>* pNode = pRoot->first_node("Layout")->first_node(); pNode; pNode = pNode->next_sibling()) {
 		int i = 0;
 		
@@ -28,12 +30,18 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 		{
 			Spawner* spawner = new Spawner("end");
 			spawner->SetVariantChance(std::stoi(pNode->first_attribute("hazardChance")->value()));
+
+			for (int i = 0; i < 5; i++) {
+				spawner->SetEndPositions(endPosition[i], i);
+			}
+
 			spawners.push_back(spawner);
 			break;
 		}
 		case RowTypes::LOGRIVER:
 		{
 			Spawner* spawner = new Spawner("log");
+			lastLogRow = spawner;
 			spawner->SetStartPosition(Vector2(-3*16, y*16));
 			spawner->SetMinLength(std::stof(pNode->first_attribute("minLength")->value()));
 			spawner->SetMaxLength(std::stof(pNode->first_attribute("maxLength")->value()));
@@ -115,6 +123,9 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 
 		y++;
 	}
+	if (lastLogRow != nullptr) {
+		lastLogRow->SetLastRow(true);
+	}
 	InsertTiles(RowTypes::BORDER, 11, y);
 }
 
@@ -146,8 +157,8 @@ void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 			tileType = i % 2;
 			if (tileType == 1 && endZoneFirstSpawner) {
 				spawners.back()->SetStartPosition(Vector2(i * 16, row * 16));
-				spawners.back()->SetMinSpawnTime(5);
-				spawners.back()->SetMaxSpawnTime(10);
+				spawners.back()->SetMinSpawnTime(1);
+				spawners.back()->SetMaxSpawnTime(2);
 				endZoneFirstSpawner = false;
 			}
 		}
@@ -188,7 +199,7 @@ void GameplayScene::Update()
 
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i]->Update();
-		if (objects[i]->GetTransform().position.x < -5 * 16 || objects[i]->GetTransform().position.x > 20 * 16) {
+		if (objects[i]->GetTransform().position.x < -5 * 16 || objects[i]->GetTransform().position.x > 20 * 16 || (dynamic_cast<EndTileItem*>(objects[i]) != nullptr && dynamic_cast<EndTileItem*>(objects[i])->IsFinished())) {
 			delete objects[i];
 			objects.erase(objects.begin() + i);
 		}
@@ -219,10 +230,14 @@ void GameplayScene::OnEnter()
 	
 	player = new Frog();
 	
-	player->SetPosition(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 16));
+	player->SetPosition(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 32));
 
 	objects.push_back(player);
 	
+	for (int i = 0; i < 5; i++) {
+		endPosition[i] = new bool(false);
+	}
+
 	LoadLevelFromFile("./resources/level.xml");
 }
 
