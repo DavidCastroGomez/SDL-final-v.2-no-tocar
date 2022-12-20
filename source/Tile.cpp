@@ -26,6 +26,12 @@ Tile::Tile(bool isLethal, int type)
 	case 2:	//Water
 		source->x = 9;
 		source->y = 25;
+		Vector2 aux(source->x, source->y);
+		GetBoundingBox().SetSize(aux);
+		aux.x = 0;
+		aux.y = 0;
+		GetBoundingBox().SetTopLeft(aux);
+		CM->AddCollider(this);
 		break;
 	case 3:	//SafeZone
 		source->x = 9;

@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include "GameObject.h"
+#include "ColliderManager.h"
 class Tile : public GameObject
 {
 public:
