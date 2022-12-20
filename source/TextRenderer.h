@@ -7,6 +7,7 @@ class TextRenderer :
 {
 private:
     std::string text;
+    TTF_Font* font;
 
 public:
     TextRenderer(SDL_Color color, float alpha, Vector2 position, float rotation, Vector2 scale, SDL_Rect* targetRect, SDL_Rect* sourceRect, std::string text, SDL_Point center);

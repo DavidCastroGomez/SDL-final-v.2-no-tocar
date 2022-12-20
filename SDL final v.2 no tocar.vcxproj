@@ -215,6 +215,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClCompile Include="source\Transform.cpp" />
     <ClCompile Include="source\TimeManager.cpp" />
     <ClCompile Include="source\TextRenderer.cpp" />
+    <ClCompile Include="source\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\XML\rapidxml.hpp" />
@@ -256,6 +257,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="source\Transform.h" />
     <ClInclude Include="source\TimeManager.h" />
     <ClInclude Include="source\TextRenderer.h" />
+    <ClInclude Include="source\TextObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

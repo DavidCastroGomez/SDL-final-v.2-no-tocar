@@ -10,6 +10,8 @@
 #include <fstream>
 #include <sstream>
 #include "RendererManager.h"
+#include "TextObject.h"
+#include "ScoreManager.h"
 class GameplayScene : public Scene
 {
 private:
@@ -20,6 +22,7 @@ private:
     static int level;
     int lives;
     int score;
+    float time;
 
     void LoadLevelFromFile(std::string path);
 
