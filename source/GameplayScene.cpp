@@ -183,6 +183,8 @@ void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 
 void GameplayScene::Update()
 {
+	time -= TM->GetDeltaTime();
+
 	for (int i = 0; i < spawners.size(); i++)
 	{
 		std::vector<GameObject*>* spawned = spawners[i]->Update();
@@ -215,8 +217,19 @@ void GameplayScene::Update()
 		}
 	}
 
+	score = PM->GetScore();
+
 	for (int i = 0; i < ui.size(); i++) {
 		ui[i]->Update();
+		if (i == 0) {
+			dynamic_cast<TextObject*>(ui[i])->text->SetText("Score: " + std::to_string(score));
+		}
+		else if (i == 2) {
+			dynamic_cast<TextObject*>(ui[i])->text->SetText("Lives: " + std::to_string(lives));
+		}
+		else if (i == 3) {
+			dynamic_cast<TextObject*>(ui[i])->text->SetText("Time: " + std::to_string((int)time));
+		}
 	}
 }
 
@@ -238,6 +251,8 @@ void GameplayScene::Render()
 void GameplayScene::OnEnter()
 {
 	lives = 4;
+	score = 0;
+	time = 21;
 
 	player = new Frog();
 	
@@ -250,6 +265,18 @@ void GameplayScene::OnEnter()
 	}
 
 	LoadLevelFromFile("./resources/level.xml");
+
+	TextObject* scoreUI = new TextObject("Score: " + std::to_string(score), Vector2(0, 0));
+	ui.push_back(scoreUI);
+
+	TextObject* highScore = new TextObject("HighScore: 0", Vector2(80, 0));
+	ui.push_back(highScore);
+
+	TextObject* liveUI = new TextObject("Lives: " + std::to_string(lives), Vector2(0, RM->windowHeight - 16));
+	ui.push_back(liveUI);
+
+	TextObject* timeUI = new TextObject("Time: " + std::to_string(time), Vector2(80, RM->windowHeight - 16));
+	ui.push_back(timeUI);
 }
 
 void GameplayScene::OnExit()

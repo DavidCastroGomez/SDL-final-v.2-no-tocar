@@ -10,7 +10,7 @@ void TextRenderer::Load(std::string path)
 {
 	assert(TTF_Init() != -1);
 
-	TTF_Font* font = TTF_OpenFont(path.c_str(), 28);
+	this->font = TTF_OpenFont(path.c_str(), 10);
 	assert(font != nullptr);
 
 	SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
@@ -22,7 +22,7 @@ void TextRenderer::Load(std::string path)
 	assert(texture != nullptr);
 
 	SDL_FreeSurface(surface);
-	SDL_DestroyTexture(texture);
+	//SDL_DestroyTexture(texture);
 }
 
 void TextRenderer::Update()
@@ -33,11 +33,17 @@ void TextRenderer::Update()
 	targetRect.h = (int)sourceRect.y * (int)scale.y;
 	SDL_SetTextureAlphaMod(texture, (Uint8)alpha);
 	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);*/
+	targetRect->x = position.x;
+	targetRect->y = position.y;
+	//targetRect->w = 6 * text.length() * scale.x;
+	//targetRect->h = 16 * scale.y;
+	SDL_SetTextureAlphaMod(texture, (Uint8)alpha);
+	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
 }
 
 void TextRenderer::Render()
 {
-	SDL_RenderCopyEx(RM->GetRenderer(), texture, sourceRect, targetRect, rotation, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(RM->GetRenderer(), texture, NULL, targetRect, rotation, NULL, SDL_FLIP_NONE);
 }
 
 std::string TextRenderer::GetText()
@@ -48,4 +54,15 @@ std::string TextRenderer::GetText()
 void TextRenderer::SetText(std::string text)
 {
 	this->text = text;
+	SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
+
+	assert(surface != nullptr);
+
+	SDL_DestroyTexture(texture);
+
+	texture = SDL_CreateTextureFromSurface(RM->GetRenderer(), surface);
+
+	assert(texture != nullptr);
+
+	SDL_FreeSurface(surface);
 }
