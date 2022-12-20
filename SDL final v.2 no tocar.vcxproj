@@ -183,6 +183,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\ColliderManager.cpp" />
     <ClCompile Include="source\Crocodile.cpp" />
     <ClCompile Include="source\EventsHandler.cpp" />
     <ClCompile Include="source\Car.cpp" />
@@ -222,6 +223,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="dependencies\XML\rapidxml_iterators.hpp" />
     <ClInclude Include="dependencies\XML\rapidxml_print.hpp" />
     <ClInclude Include="dependencies\XML\rapidxml_utils.hpp" />
+    <ClInclude Include="source\ColliderManager.h" />
     <ClInclude Include="source\EventsHandler.h" />
     <ClInclude Include="source\Car.h" />
     <ClInclude Include="source\Crocodile.h" />
