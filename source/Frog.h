@@ -1,12 +1,13 @@
 #pragma once
 #include <SDL_image.h>
+#include <vector>
 #include "GameObject.h"
 #include "Vector2.h"
 #include "TimeManager.h"
 #include "InputManager.h"
 #include "ScoreManager.h"
 #include "LifeManager.h"
-#include "AABB.h"
+#include "ColliderManager.h"
 
 class Frog : public GameObject
 {
@@ -24,4 +25,5 @@ private:
 	Vector2 initialPosition;
 	bool moving, hasFood;
 	int lastRow, currentRow;
+	int moveDelay;
 };

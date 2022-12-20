@@ -35,6 +35,13 @@ EndTileItem::EndTileItem(float duration, bool isLethal, Spawner* spawner)
 		AnimatedImageRenderer* move = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, source, center, 16, 16, 2, 0.4, 2, false);
 		move->Load("./resources/assets2.png");
 		renderers.push_back(move);
+
+		Vector2 aux(source->w, source->h);
+		GetBoundingBox().SetSize(aux);
+		aux.x = 0;
+		aux.y = 0;
+		GetBoundingBox().SetTopLeft(aux);
+		CM->AddCollider(this);
 	}
 	else {
 

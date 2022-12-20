@@ -2,6 +2,7 @@
 #include <SDL_image.h>
 #include "GameObject.h"
 #include "Log.h"
+#include "ColliderManager.h"
 class Snake : public GameObject
 {
 public:

@@ -2,6 +2,7 @@
 #include <string>
 #include <SDL_image.h>
 #include "GameObject.h"
+#include "ColliderManager.h"
 class Car : public GameObject
 {
 public:

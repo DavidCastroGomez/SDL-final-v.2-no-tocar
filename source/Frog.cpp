@@ -6,6 +6,11 @@ Frog::Frog()
 	hasFood = false;
 	currentRow = 1;
 	lastRow = currentRow;
+	Vector2 aux(16, 16);
+	GetBoundingBox().SetSize(aux);
+	aux.x = 0;
+	aux.y = 0;
+	GetBoundingBox().SetTopLeft(aux);
 
 	SDL_Rect* source = new SDL_Rect();
 
@@ -45,11 +50,52 @@ void Frog::Respawn()
 void Frog::AddMovement(Vector2 dir)
 {
 	moving = true;
-	//TODO
-	//Fer un check the colisió amb la funció CheckOverlappingAABB(AABB* b)
-	//Canviar per interpolació en comptes de fer un canvi directe a la posició
-	transform.position.x += dir.x * TM->GetDeltaTime();
-	transform.position.y += dir.y * TM->GetDeltaTime();
+	switch ((int)dir.x)
+	{
+	case 0:
+	{
+		break;
+	}
+	case 1:
+	{
+		for (int i = 0; i < 64; i++)
+			transform.position.x += 32 * TM->GetDeltaTime();
+		break;
+	}
+	case -1:
+	{
+		for (int i = 0; i > -64; i--)
+			transform.position.x -= 32 * TM->GetDeltaTime();
+		break;
+	}
+	default:
+	{
+		break;
+	}
+	}
+	switch ((int)dir.y)
+	{
+	case 0:
+	{
+		break;
+	}
+	case 1:
+	{
+		for (int i = 0; i < 64; i++)
+			transform.position.y += 32 * TM->GetDeltaTime();
+		break;
+	}
+	case -1:
+	{
+		for (int i = 0; i > -64; i--)
+			transform.position.y -= 32 * TM->GetDeltaTime();
+		break;
+	}
+	default:
+	{
+		break;
+	}
+	}
 	currentRow = transform.position.x / 16;
 	if (currentRow > lastRow)
 	{
@@ -57,6 +103,14 @@ void Frog::AddMovement(Vector2 dir)
 		AddScore(10);
 	}
 	moving = false;
+
+	//Fer un check the colisió amb la funció CheckOverlappingAABB(AABB* b)
+	/*for (int i = 0; i < CM->GetColliders().size(); i++)
+	{
+		AABB* temp = &(CM->GetColliders()[i]->GetBoundingBox());
+		if (GetBoundingBox().CheckOverlappingAABB(temp))
+			Respawn();
+	}*/
 }
 
 bool Frog::isMoving()
@@ -80,31 +134,39 @@ void Frog::AddFood()
 
 void Frog::Update()
 {	
-	if (!isMoving())
+	if (!isMoving() && moveDelay >= 10)
 	{
-		Vector2 dir(0, 0);
 		if (IM->CheckKeyState(SDLK_w, PRESSED))
 		{
-			dir.x = 0;
-			dir.y = -64;
+			targetPosition.x = 0;
+			targetPosition.y = -1;
+			AddMovement(targetPosition);
+			moveDelay = 0;
 		}
-		if (IM->CheckKeyState(SDLK_s, PRESSED))
+		else if (IM->CheckKeyState(SDLK_s, PRESSED))
 		{
-			dir.x = 0;
-			dir.y = 16;
+			targetPosition.x = 0;
+			targetPosition.y = 1;
+			AddMovement(targetPosition);
+			moveDelay = 0;
 		}
-		if (IM->CheckKeyState(SDLK_d, PRESSED))
+		else if (IM->CheckKeyState(SDLK_a, PRESSED))
 		{
-			dir.x = 16;
-			dir.y = 0;
+			targetPosition.x = -1;
+			targetPosition.y = 0;
+			AddMovement(targetPosition);
+			moveDelay = 0;
 		}
-		if (IM->CheckKeyState(SDLK_a, PRESSED))
+		else if (IM->CheckKeyState(SDLK_d, PRESSED))
 		{
-			dir.x = -16;
-			dir.y = 0;
+			targetPosition.x = 1;
+			targetPosition.y = 0;
+			AddMovement(targetPosition);
+			moveDelay = 0;
 		}
-		AddMovement(dir);
+		
 	}
+	moveDelay++;
 	for (int i = 0; i < renderers.size(); i++) {
 		renderers[i]->SetPosition(transform.position);
 		renderers[i]->Update();

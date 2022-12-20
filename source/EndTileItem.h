@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include "Spawner.h"
 #include "GameObject.h"
+#include "ColliderManager.h"
 
 class Spawner;
 

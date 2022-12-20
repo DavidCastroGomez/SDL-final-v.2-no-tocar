@@ -29,6 +29,13 @@ Snake::Snake(Log* log)
 	AnimatedImageRenderer* move = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, source, center, 16, 16, 3, 0.5, 3, true);
 	move->Load("./resources/assets2.png");
 	renderers.push_back(move);
+
+	Vector2 aux(source->w, source->h);
+	GetBoundingBox().SetSize(aux);
+	aux.x = 0;
+	aux.y = 0;
+	GetBoundingBox().SetTopLeft(aux);
+	CM->AddCollider(this);
 }
 
 void Snake::Update()
