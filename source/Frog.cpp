@@ -45,6 +45,9 @@ void Frog::Respawn()
 void Frog::AddMovement(Vector2 dir)
 {
 	moving = true;
+	//TODO
+	//Fer un check the colisió amb la funció CheckOverlappingAABB(AABB* b)
+	//Canviar per interpolació en comptes de fer un canvi directe a la posició
 	transform.position.x += dir.x * TM->GetDeltaTime();
 	transform.position.y += dir.y * TM->GetDeltaTime();
 	currentRow = transform.position.x / 16;
