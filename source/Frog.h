@@ -5,6 +5,8 @@
 #include "TimeManager.h"
 #include "InputManager.h"
 #include "ScoreManager.h"
+#include "LifeManager.h"
+#include "AABB.h"
 
 class Frog : public GameObject
 {

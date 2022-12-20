@@ -38,7 +38,8 @@ Frog::Frog()
 
 void Frog::Respawn()
 {
-	AddMovement(initialPosition);
+	LM->RemoveLife();
+	transform.position = initialPosition;
 }
 
 void Frog::AddMovement(Vector2 dir)
