@@ -18,6 +18,7 @@ private:
     bool* endPosition[5];
     Frog* player;
     static int level;
+    int lives;
     int score;
 
     void LoadLevelFromFile(std::string path);

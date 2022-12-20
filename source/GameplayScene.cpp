@@ -205,6 +205,16 @@ void GameplayScene::Update()
 		}
 	}
 
+	if (player->FinishedDeathAnimation()) {
+		if (lives > 0) {
+			player->Respawn(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 32));
+			lives--;
+		}			
+		else {
+			//GAme Over
+		}
+	}
+
 	for (int i = 0; i < ui.size(); i++) {
 		ui[i]->Update();
 	}
@@ -227,7 +237,8 @@ void GameplayScene::Render()
 
 void GameplayScene::OnEnter()
 {
-	
+	lives = 4;
+
 	player = new Frog();
 	
 	player->SetPosition(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 32));

@@ -11,6 +11,8 @@ Frog::Frog()
 	aux.x = 0;
 	aux.y = 0;
 	GetBoundingBox().SetTopLeft(aux);
+	dead = false;
+	animDeathTime = 0;
 
 	SDL_Rect* source = new SDL_Rect();
 
@@ -33,18 +35,36 @@ Frog::Frog()
 		center.y = target->h / 2,
 	};
 
+	SDL_Rect* sourceDeath = new SDL_Rect();
+
+	sourceDeath->x = 0;
+	sourceDeath->y = 48;
+	sourceDeath->w = 16;
+	sourceDeath->h = 16;
+
 	AnimatedImageRenderer* move = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, source, center, 16, 16, 3, 0.4, 3, true);
 	ImageRenderer* idle = new ImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, source, center);
+	AnimatedImageRenderer* die = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, sourceDeath, center, 16, 16, 5, 0.2, 5, false);
+
+
 	idle->Load("./resources/assets2.png");
 	move->Load("./resources/assets2.png");
+	die->Load("./resources/assets2.png");
 	renderers.push_back(idle);
 	renderers.push_back(move);
+	renderers.push_back(die);
 }
 
-void Frog::Respawn()
+void Frog::Respawn(Vector2 startPos)
 {
-	LM->RemoveLife();
-	transform.position = initialPosition;
+	moving = false;
+	hasFood = false;
+	currentRow = 1;
+	lastRow = currentRow;
+	dead = false;
+	animDeathTime = 0;
+
+	SetPosition(startPos);
 }
 
 void Frog::AddMovement(Vector2 dir)
@@ -123,6 +143,17 @@ void Frog::AddScore(int score)
 	PM->AddScore(score);
 }
 
+bool Frog::FinishedDeathAnimation()
+{
+	if (dead) {
+		animDeathTime += TM->GetDeltaTime();
+		if (animDeathTime > 1) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void Frog::AddFood()
 {
 	if (!hasFood)
@@ -177,6 +208,11 @@ void Frog::Render()
 {
 	/*if(!isMoving())
 		renderers[0]->Render();
-	else*/
+	else*/ if(!dead){
 		renderers[1]->Render();
+	}
+	else {
+		renderers[2]->Render();
+	}
+		
 }
