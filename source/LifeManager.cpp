@@ -24,6 +24,6 @@ void LifeManager::RemoveLife()
 	this->remainingLives--;
 	if (remainingLives <= 0)
 	{
-		//End Game
+		SDL_Quit();
 	}
 }
