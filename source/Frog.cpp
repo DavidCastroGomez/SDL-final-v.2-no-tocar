@@ -13,6 +13,7 @@ Frog::Frog()
 	GetBoundingBox().SetTopLeft(aux);
 	dead = false;
 	animDeathTime = 0;
+	initialPosition = aux;
 
 	SDL_Rect* source = new SDL_Rect();
 
@@ -124,13 +125,12 @@ void Frog::AddMovement(Vector2 dir)
 	}
 	moving = false;
 
-	//Fer un check the colisió amb la funció CheckOverlappingAABB(AABB* b)
-	/*for (int i = 0; i < CM->GetColliders().size(); i++)
+	for (int i = 0; i < CM->GetColliders().size(); i++)
 	{
-		AABB* temp = &(CM->GetColliders()[i]->GetBoundingBox());
-		if (GetBoundingBox().CheckOverlappingAABB(temp))
-			Respawn();
-	}*/
+		auto temp = CM->GetColliders()[i]->GetBoundingBox();
+		if (GetBoundingBox().CheckOverlappingAABB(&temp))
+			Respawn(initialPosition);
+	}
 }
 
 bool Frog::isMoving()

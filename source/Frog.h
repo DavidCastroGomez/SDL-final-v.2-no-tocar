@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL_image.h>
 #include <vector>
+#include <iostream>
 #include "GameObject.h"
 #include "Vector2.h"
 #include "TimeManager.h"
