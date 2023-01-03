@@ -7,6 +7,7 @@
 #include "MainMenuScene.h"
 #include "GameplayScene.h"
 #include "EventsHandler.h"
+#include "AudioManager.h"
 
 class GameEngine
 {

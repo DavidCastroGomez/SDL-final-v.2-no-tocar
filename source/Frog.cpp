@@ -70,6 +70,7 @@ void Frog::Respawn(Vector2 startPos)
 
 void Frog::AddMovement(Vector2 dir)
 {
+	AM->PlaySFX("jump", 0);
 	moving = true;
 	switch ((int)dir.x)
 	{

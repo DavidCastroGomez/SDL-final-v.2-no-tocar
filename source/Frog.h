@@ -9,6 +9,7 @@
 #include "ScoreManager.h"
 #include "LifeManager.h"
 #include "ColliderManager.h"
+#include "AudioManager.h"
 
 class Frog : public GameObject
 {

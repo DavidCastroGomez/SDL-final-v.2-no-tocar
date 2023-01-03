@@ -18,7 +18,9 @@ void GameEngine::Init() {
 	SM->AddScene("Game", gameS);
 	SM->SetScene("Game");
 
-	
+	AM->LoadSFX("jump");
+	AM->LoadMusic("background");
+	AM->PlayMusic("background");
 }
 
 
