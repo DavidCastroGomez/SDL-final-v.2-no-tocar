@@ -208,6 +208,8 @@ void GameplayScene::Update()
 		}
 	}
 
+	player->Update();
+
 	if (time <= 0) {
 		player->SetDead(true);
 	}
@@ -219,7 +221,7 @@ void GameplayScene::Update()
 			time = 21;
 		}
 		else {
-			//GAme Over
+			SM->SetScene("Main Menu");
 		}
 	}
 
@@ -255,6 +257,8 @@ void GameplayScene::Render()
 		objects[i]->Render();
 	}
 
+	player->Render();
+
 	for (int i = 0; i < ui.size(); i++) {
 		ui[i]->Render();
 	}
@@ -270,7 +274,7 @@ void GameplayScene::OnEnter()
 
 	player->SetPosition(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 32));
 
-	objects.push_back(player);
+	//objects.push_back(player);
 
 	for (int i = 0; i < 5; i++) {
 		endPosition[i] = new bool(false);
