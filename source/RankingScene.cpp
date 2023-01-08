@@ -2,6 +2,8 @@
 
 void RankingScene::Update()
 {
+	EH->HandleEvents();
+
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i]->Update();
 	}
@@ -20,10 +22,11 @@ void RankingScene::Render()
 		ui[i]->Render();
 	}
 
-	if (IM->GetMouseX() <= 120 && IM->GetMouseX() >= 50)
+	if (IM->GetClicked() && IM->GetMouseX() <= 120 && IM->GetMouseX() >= 50)
 	{
 		if (IM->GetMouseY() >= 22 && IM->GetMouseY() <= 42)
 		{
+			AM->PlaySFX("click", 0);
 			SM->SetScene("Main Menu");
 		}
 	}
@@ -31,7 +34,11 @@ void RankingScene::Render()
 
 void RankingScene::OnEnter()
 {
+	IM->SetClick(false);
+
+	AM->LoadSFX("click");
 	AM->LoadMusic("ranking");
+
 	AM->PlayMusic("ranking");
 
 	TextObject* exitButton = new TextObject("BACK TO MENU", Vector2(60, 30));
@@ -41,4 +48,5 @@ void RankingScene::OnEnter()
 void RankingScene::OnExit()
 {
 	AM->UnloadMusic("ranking");
+	AM->UnloadSFX("click");
 }

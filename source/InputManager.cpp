@@ -76,3 +76,13 @@ void InputManager::SetQuitEvent(bool b)
 {
 	quitEvent = b;
 }
+
+void InputManager::SetClick(bool clicked)
+{
+	this->clicked = clicked;
+}
+
+bool InputManager::GetClicked()
+{
+	return this->clicked;
+}

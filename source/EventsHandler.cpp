@@ -28,5 +28,13 @@ void EventsHandler::HandleEvents()
 			SDL_RenderSetScale(RM->GetRenderer(), evt.window.data1 / RM->windowWidth, evt.window.data2 / RM->windowHeight);
 			SDL_RenderPresent(RM->GetRenderer());
 		}
+		if (evt.type == SDL_MOUSEBUTTONDOWN)
+		{
+			IM->SetClick(true);
+		}
+		else if (evt.type == SDL_MOUSEBUTTONUP)
+		{
+			IM->SetClick(false);
+		}
 	}
 }

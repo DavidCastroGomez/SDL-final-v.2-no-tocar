@@ -7,12 +7,14 @@
 #include "SceneManager.h"
 #include "AudioManager.h"
 #include "TextObject.h"
+#include "EventsHandler.h"
 
 class RankingScene : public Scene {
-
+	
 public:
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void OnEnter() override;
 	virtual void OnExit() override;
+
 }; 
