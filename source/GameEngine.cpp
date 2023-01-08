@@ -20,10 +20,6 @@ void GameEngine::Init() {
 	SM->AddScene("Main Menu", menuS);
 
 	SM->SetScene("Splash");
-	
-	AM->LoadSFX("jump");
-	AM->LoadMusic("background");
-	AM->PlayMusic("background");
 }
 
 

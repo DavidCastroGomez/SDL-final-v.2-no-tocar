@@ -25,9 +25,11 @@ void MainMenuScene::Render()
 
 void MainMenuScene::OnEnter()
 {
-
+	AM->LoadMusic("menu");
+	AM->PlayMusic("menu");
 }
 
 void MainMenuScene::OnExit()
 {
+	AM->UnloadMusic("menu");
 }
