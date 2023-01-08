@@ -13,6 +13,8 @@
 #include "TextObject.h"
 #include "ScoreManager.h"
 #include "Frog.h"
+#include "SceneManager.h"
+
 class GameplayScene : public Scene
 {
 private:
