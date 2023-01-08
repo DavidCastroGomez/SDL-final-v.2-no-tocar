@@ -73,6 +73,7 @@ Frog::Frog()
 
 void Frog::Respawn(Vector2 startPos)
 {
+	AM->PlaySFX("death", 0);
 	canMove = true;
 	moving = false;
 	hasFood = false;
@@ -164,8 +165,9 @@ void Frog::AddScore(int score)
 bool Frog::FinishedDeathAnimation()
 {
 	if (dead) {
+		AM->LoadSFX("no lives");
 		animDeathTime += TM->GetDeltaTime();
-		if (animDeathTime > 1) {
+		if (animDeathTime > 2) {
 			return true;
 		}
 	}
