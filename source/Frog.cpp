@@ -58,7 +58,7 @@ Frog::Frog()
 
 	ImageRenderer* idle = new ImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, sourceIdle, center);
 	AnimatedImageRenderer* move = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, sourceMove, center, 16, 16, 3, 0.2, 3, true);
-	AnimatedImageRenderer* die = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, sourceDeath, center, 16, 16, 5, 0.2, 5, false);
+	AnimatedImageRenderer* die = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, sourceDeath, center, 16, 16, 5, 0.2, 5, true);
 
 
 	idle->Load("./resources/assets2.png");
@@ -71,12 +71,14 @@ Frog::Frog()
 
 void Frog::Respawn(Vector2 startPos)
 {
+	canMove = true;
 	moving = false;
 	hasFood = false;
 	currentRow = 1;
 	lastRow = currentRow;
 	dead = false;
 	animDeathTime = 0;
+	rotation = 0;
 
 	SetPosition(startPos);
 }
@@ -169,6 +171,11 @@ bool Frog::FinishedDeathAnimation()
 	return false;
 }
 
+void Frog::SetDead(bool b)
+{
+	dead = b;
+}
+
 void Frog::AddFood()
 {
 	if (!hasFood)
@@ -180,7 +187,7 @@ void Frog::AddFood()
 
 void Frog::Update()
 {
-	if (canMove)
+	if (canMove && !dead)
 	{
 		if (IM->CheckKeyState(SDLK_w, PRESSED))
 		{
@@ -230,10 +237,11 @@ void Frog::Render()
 {
 	if(!moving)
 		renderers[0]->Render();
-	else if (!dead) {
+	else {
 		renderers[1]->Render();
 	}
-	else {
+
+	if(dead) {
 		renderers[2]->Render();
 	}
 
