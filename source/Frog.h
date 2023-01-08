@@ -24,11 +24,13 @@ public:
 	void AddScore(int score);
 	bool FinishedDeathAnimation();
 private:
-	Vector2 targetPosition;
+	Vector2 targetDirection;
 	Vector2 initialPosition;
-	bool moving, hasFood;
+	bool canMove, moving, hasFood;
 	int lastRow, currentRow;
 	bool dead;
 	float animDeathTime;
-	int moveDelay;
+	float moveTime, currentMoveTime, moveDelay;
+	float rotation;
+	bool checkForMovePoint;
 };

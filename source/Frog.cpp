@@ -2,10 +2,16 @@
 
 Frog::Frog()
 {
+	canMove = true;
 	moving = false;
 	hasFood = false;
-	currentRow = 1;
+	moveTime = 0.125;
+	moveDelay = 0.1;
+	currentMoveTime = 0;
+	currentRow = 0;
+	rotation = 0;
 	lastRow = currentRow;
+	checkForMovePoint = true;
 	Vector2 aux(16, 16);
 	GetBoundingBox().SetSize(aux);
 	aux.x = 0;
@@ -15,12 +21,19 @@ Frog::Frog()
 	animDeathTime = 0;
 	initialPosition = aux;
 
-	SDL_Rect* source = new SDL_Rect();
+	SDL_Rect* sourceIdle = new SDL_Rect();
 
-	source->x = 0;
-		source->y = 0;
-		source->w = 16;
-		source->h = 16;
+	sourceIdle->x = 0;
+	sourceIdle->y = 0;
+	sourceIdle->w = 16;
+	sourceIdle->h = 16;
+
+	SDL_Rect* sourceMove = new SDL_Rect();
+
+	sourceMove->x = 0;
+	sourceMove->y = 0;
+	sourceMove->w = 16;
+	sourceMove->h = 16;
 
 	SDL_Rect* target = new SDL_Rect();
 
@@ -43,8 +56,8 @@ Frog::Frog()
 	sourceDeath->w = 16;
 	sourceDeath->h = 16;
 
-	AnimatedImageRenderer* move = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, source, center, 16, 16, 3, 0.4, 3, true);
-	ImageRenderer* idle = new ImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, source, center);
+	ImageRenderer* idle = new ImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, sourceIdle, center);
+	AnimatedImageRenderer* move = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, sourceMove, center, 16, 16, 3, 0.2, 3, true);
 	AnimatedImageRenderer* die = new AnimatedImageRenderer(color, 255, Vector2(0, 0), 0, Vector2(1, 1), target, sourceDeath, center, 16, 16, 5, 0.2, 5, false);
 
 
@@ -70,67 +83,68 @@ void Frog::Respawn(Vector2 startPos)
 
 void Frog::AddMovement(Vector2 dir)
 {
-	AM->PlaySFX("jump", 0);
-	moving = true;
+	currentMoveTime += TM->GetDeltaTime();
+
 	switch ((int)dir.x)
 	{
 	case 0:
-	{
 		break;
-	}
 	case 1:
-	{
-		for (int i = 0; i < 64; i++)
-			transform.position.x += 32 * TM->GetDeltaTime();
+		transform.position.x += 128 * TM->GetDeltaTime();
+		rotation = 90;
 		break;
-	}
 	case -1:
-	{
-		for (int i = 0; i > -64; i--)
-			transform.position.x -= 32 * TM->GetDeltaTime();
+		transform.position.x -= 128 * TM->GetDeltaTime();
+		rotation = 270;
 		break;
-	}
 	default:
-	{
 		break;
-	}
 	}
 	switch ((int)dir.y)
 	{
 	case 0:
-	{
 		break;
-	}
 	case 1:
-	{
-		for (int i = 0; i < 64; i++)
-			transform.position.y += 32 * TM->GetDeltaTime();
+		transform.position.y += 128 * TM->GetDeltaTime();
+		rotation = 180;
+		if (checkForMovePoint) {
+			currentRow--;
+			checkForMovePoint = false;
+		}
 		break;
-	}
 	case -1:
-	{
-		for (int i = 0; i > -64; i--)
-			transform.position.y -= 32 * TM->GetDeltaTime();
+		transform.position.y -= 128 * TM->GetDeltaTime();
+		rotation = 0;
+		if (checkForMovePoint) {
+			currentRow++;
+			checkForMovePoint = false;
+		}
 		break;
-	}
 	default:
-	{
 		break;
 	}
-	}
-	currentRow = transform.position.x / 16;
+	
 	if (currentRow > lastRow)
 	{
 		lastRow = currentRow;
 		AddScore(10);
 	}
-	moving = false;
 
-	for (int i = 0; i < CM->GetColliders().size(); i++)
-	{
-		auto temp = CM->GetColliders()[i]->GetBoundingBox();
-		if (GetBoundingBox().CheckOverlappingAABB(&temp))
-			Respawn(initialPosition);
+	//for (int i = 0; i < CM->GetColliders().size(); i++)
+	//{
+	//	auto temp = CM->GetColliders()[i]->GetBoundingBox();
+	//	if (GetBoundingBox().CheckOverlappingAABB(&temp))
+	//		Respawn(initialPosition);
+	//}
+
+	if (currentMoveTime > moveTime) {
+		targetDirection = Vector2(0, 0);
+		if (currentMoveTime > moveTime + moveDelay) {
+			moving = false;
+			currentMoveTime = 0;
+			canMove = true;
+			checkForMovePoint = true;
+		}
 	}
 }
 
@@ -165,55 +179,62 @@ void Frog::AddFood()
 }
 
 void Frog::Update()
-{	
-	if (!isMoving() && moveDelay >= 10)
+{
+	if (canMove)
 	{
 		if (IM->CheckKeyState(SDLK_w, PRESSED))
 		{
-			targetPosition.x = 0;
-			targetPosition.y = -1;
-			AddMovement(targetPosition);
-			moveDelay = 0;
+			targetDirection.x = 0;
+			targetDirection.y = -1;
+			moving = true;
+			canMove = false;
+			AM->PlaySFX("jump", 0);
 		}
 		else if (IM->CheckKeyState(SDLK_s, PRESSED))
 		{
-			targetPosition.x = 0;
-			targetPosition.y = 1;
-			AddMovement(targetPosition);
-			moveDelay = 0;
+			targetDirection.x = 0;
+			targetDirection.y = 1;
+			moving = true;
+			canMove = false;
+			AM->PlaySFX("jump", 0);
 		}
 		else if (IM->CheckKeyState(SDLK_a, PRESSED))
 		{
-			targetPosition.x = -1;
-			targetPosition.y = 0;
-			AddMovement(targetPosition);
-			moveDelay = 0;
+			targetDirection.x = -1;
+			targetDirection.y = 0;
+			moving = true;
+			canMove = false;
+			AM->PlaySFX("jump", 0);
 		}
 		else if (IM->CheckKeyState(SDLK_d, PRESSED))
 		{
-			targetPosition.x = 1;
-			targetPosition.y = 0;
-			AddMovement(targetPosition);
-			moveDelay = 0;
+			targetDirection.x = 1;
+			targetDirection.y = 0;
+			moving = true;
+			canMove = false;
+			AM->PlaySFX("jump", 0);
 		}
-		
 	}
-	moveDelay++;
+	if (moving) {
+		AddMovement(targetDirection);
+	}
+
 	for (int i = 0; i < renderers.size(); i++) {
 		renderers[i]->SetPosition(transform.position);
+		renderers[i]->SetRotation(rotation);
 		renderers[i]->Update();
 	}
 }
 
 void Frog::Render()
 {
-	/*if(!isMoving())
+	if(!moving)
 		renderers[0]->Render();
-	else*/ if(!dead){
+	else if (!dead) {
 		renderers[1]->Render();
 	}
 	else {
 		renderers[2]->Render();
 	}
-		
+
 }
