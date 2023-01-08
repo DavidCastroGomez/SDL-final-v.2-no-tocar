@@ -293,6 +293,9 @@ void GameplayScene::OnEnter()
 
 	AM->LoadMusic("background");
 	AM->LoadSFX("jump");
+	AM->LoadSFX("death");
+	AM->LoadSFX("no lives");
+	AM->LoadSFX("point");
 
 	AM->PlayMusic("background");
 }
@@ -301,4 +304,7 @@ void GameplayScene::OnExit()
 {
 	AM->UnloadMusic("background");
 	AM->UnloadSFX("jump");
+	AM->UnloadSFX("death");
+	AM->UnloadSFX("no lives");
+	AM->UnloadSFX("point");
 }
