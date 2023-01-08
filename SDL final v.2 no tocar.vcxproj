@@ -183,6 +183,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\AudioManager.cpp" />
     <ClCompile Include="source\ColliderManager.cpp" />
     <ClCompile Include="source\Crocodile.cpp" />
     <ClCompile Include="source\EventsHandler.cpp" />
@@ -194,6 +195,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClCompile Include="source\GameObject.cpp" />
     <ClCompile Include="source\Log.cpp" />
     <ClCompile Include="source\GameplayScene.cpp" />
+    <ClCompile Include="source\RankingScene.cpp" />
     <ClCompile Include="source\RendererManager.cpp" />
     <ClCompile Include="source\AnimatedImageRenderer.cpp" />
     <ClCompile Include="source\ImageRenderer.cpp" />
@@ -223,6 +225,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="dependencies\XML\rapidxml_iterators.hpp" />
     <ClInclude Include="dependencies\XML\rapidxml_print.hpp" />
     <ClInclude Include="dependencies\XML\rapidxml_utils.hpp" />
+    <ClInclude Include="source\AudioManager.h" />
     <ClInclude Include="source\ColliderManager.h" />
     <ClInclude Include="source\EventsHandler.h" />
     <ClInclude Include="source\Car.h" />
@@ -234,6 +237,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="source\Gameplay.h" />
     <ClInclude Include="source\Log.h" />
     <ClInclude Include="source\GameplayScene.h" />
+    <ClInclude Include="source\RankingScene.h" />
     <ClInclude Include="source\RendererManager.h" />
     <ClInclude Include="source\AnimatedImageRenderer.h" />
     <ClInclude Include="source\ImageRenderer.h" />

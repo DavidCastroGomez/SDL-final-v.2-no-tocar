@@ -8,6 +8,7 @@ public:
 	Tile(bool isLethal, int type);
 	void Update() override;
 	void Render() override;
+	bool GetLethal();
 private:
 	bool isLethal;
 	

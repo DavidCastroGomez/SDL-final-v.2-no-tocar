@@ -68,7 +68,7 @@ Car::Car(std::string carId, int speed)
 void Car::Update()
 {
 	transform.position.x += speed * TM->GetDeltaTime();
-
+	GetBoundingBox().SetTopLeft(transform.position);
 	renderers[0]->SetPosition(transform.position);
 	renderers[0]->Update();
 }

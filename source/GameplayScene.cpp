@@ -208,10 +208,15 @@ void GameplayScene::Update()
 		}
 	}
 
+	if (time <= 0) {
+		player->SetDead(true);
+	}
+
 	if (player->FinishedDeathAnimation()) {
 		if (lives > 0) {
-			player->Respawn(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 32));
+			player->Respawn(player->GetInitialPosition());
 			lives--;
+			time = 21;
 		}
 		else {
 			//GAme Over
@@ -231,6 +236,12 @@ void GameplayScene::Update()
 		else if (i == 3) {
 			dynamic_cast<TextObject*>(ui[i])->text->SetText("Time: " + std::to_string((int)time));
 		}
+	}
+
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		if (tiles[i]->GetLethal() && player->boundingBox.CheckOverlappingAABB(&tiles[i]->boundingBox))
+			player->Respawn(player->GetInitialPosition());
 	}
 }
 

@@ -47,6 +47,7 @@ void Snake::Update()
 		speed = -speed;
 	}
 
+	GetBoundingBox().SetTopLeft(transform.position);
 	renderers[0]->SetPosition(transform.position);
 	renderers[0]->Update();
 

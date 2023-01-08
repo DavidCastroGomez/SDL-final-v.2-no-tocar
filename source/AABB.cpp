@@ -26,22 +26,22 @@ bool AABB::CheckOverlappingAABB(AABB* b)
     rightDownB = Vector2(b->GetTopLeft().x + b->GetSize().x, b->GetTopLeft().y + b->GetSize().y);
 
     //If any of the sides from A are outside of B
-    if (leftUpA.x <= rightDownB.x && leftUpA.y <= rightDownB.y)
+    if (leftUpA.x <= rightDownB.x && leftUpA.y >= rightDownB.y)
     {
         return true;
     }
 
-    if (leftDownA.x <= rightUpB.x && leftDownA.y <= rightUpB.y)
+    if (leftDownA.x <= rightUpB.x && leftDownA.y >= rightUpB.y)
     {
         return true;
     }
 
-    if (rightUpA.x <= leftDownB.x && rightUpA.y <= leftDownB.y)
+    if (rightUpA.x <= leftDownB.x && rightUpA.y >= leftDownB.y)
     {
         return true;
     }
 
-    if (rightDownA.x <= leftUpB.x && rightDownA.y <= leftUpB.y)
+    if (rightDownA.x <= leftUpB.x && rightDownA.y >= leftUpB.y)
     {
         return true;
     }
