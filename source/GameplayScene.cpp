@@ -207,10 +207,15 @@ void GameplayScene::Update()
 		}
 	}
 
+	if (time <= 0) {
+		player->SetDead(true);
+	}
+
 	if (player->FinishedDeathAnimation()) {
 		if (lives > 0) {
 			player->Respawn(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 32));
 			lives--;
+			time = 21;
 		}			
 		else {
 			//GAme Over
@@ -252,7 +257,7 @@ void GameplayScene::OnEnter()
 {
 	lives = 4;
 	score = 0;
-	time = 21;
+	time = 6;
 
 	player = new Frog();
 	

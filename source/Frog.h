@@ -23,6 +23,8 @@ public:
 	void AddFood();
 	void AddScore(int score);
 	bool FinishedDeathAnimation();
+	void SetDead(bool b);
+
 private:
 	Vector2 targetDirection;
 	Vector2 initialPosition;
