@@ -26,7 +26,7 @@ void SplashScreenScreen::OnEnter()
 
 	SDL_Rect* target = new SDL_Rect();
 
-	target->x = 35;
+	target->x = 30;
 	target->y = 50;
 	target->w = 225/2;
 	target->h = 225/2;
