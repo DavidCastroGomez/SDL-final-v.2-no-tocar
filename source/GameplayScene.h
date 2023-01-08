@@ -26,6 +26,7 @@ private:
     int lives;
     int score;
     float time;
+    float gameOverTime;
     bool levelComplete;
 
     void LoadLevelFromFile(std::string path);

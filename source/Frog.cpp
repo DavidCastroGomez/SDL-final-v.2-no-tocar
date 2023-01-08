@@ -174,10 +174,11 @@ void Frog::AddScore(int score)
 	PM->AddScore(score);
 }
 
-bool Frog::FinishedDeathAnimation()
+bool Frog::FinishedDeathAnimation(bool lastDeath)
 {
 	if (dead) {
-		AM->PlaySFX("death", 0);
+		if(!lastDeath)
+			AM->PlaySFX("death", 0);
 		animDeathTime += TM->GetDeltaTime();
 		if (animDeathTime > .5) {
 			return true;

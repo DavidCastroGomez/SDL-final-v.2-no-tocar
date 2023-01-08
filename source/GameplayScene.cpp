@@ -233,17 +233,17 @@ void GameplayScene::Update()
 			player->SetDead(true);
 		}
 
-		if (player->FinishedDeathAnimation()) {
-			if (lives > 0) {
-				player->Respawn(player->GetInitialPosition());
-				lives--;
-				time = 21;
-			}
-			else {
-				AM->PlaySFX("no lives", 0);
-				SM->SetScene("Main Menu");
-			}
+		if (player->FinishedDeathAnimation(false) && lives > 0) {
+			player->Respawn(player->GetInitialPosition());
+			lives--;
+			time = 21;
 		}
+		else if(player->FinishedDeathAnimation(true)) {
+				AM->PlaySFX("no lives", 0);
+				gameOverTime += TM->GetDeltaTime();
+				if(gameOverTime > .9)
+					SM->SetScene("Main Menu");
+			}
 
 		score = PM->GetScore();
 
@@ -296,6 +296,7 @@ void GameplayScene::OnEnter()
 	lives = 4;
 	score = 0;
 	time = 21;
+	gameOverTime = 0.0f;
 	levelComplete = false;
 
 	player = new Frog();

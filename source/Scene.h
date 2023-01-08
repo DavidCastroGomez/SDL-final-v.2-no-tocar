@@ -3,6 +3,7 @@
 #include <vector>
 #include <SDL.h>
 #include "RendererManager.h"
+#include <Windows.h>
 
 class Scene {
 protected:

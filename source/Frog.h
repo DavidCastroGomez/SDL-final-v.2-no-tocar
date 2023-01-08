@@ -22,7 +22,7 @@ public:
     void Render() override;
     void AddFood();
     void AddScore(int score);
-    bool FinishedDeathAnimation();
+    bool FinishedDeathAnimation(bool lastDeath);
     void SetDead(bool b);
     Vector2 GetInitialPosition();
 private:
