@@ -1,11 +1,13 @@
 #pragma once
 #include <SDL.h>
+#include <random>
 #include "GameObject.h"
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "SplashSceneScene.h"
 #include "MainMenuScene.h"
 #include "GameplayScene.h"
+#include "RankingScene.h"
 #include "EventsHandler.h"
 #include "AudioManager.h"
 
