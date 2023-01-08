@@ -18,7 +18,6 @@ void GameEngine::Init() {
 
 	SM->AddScene("Splash", splashS);
 	SM->AddScene("Main Menu", menuS);
-	SM->AddScene("Game", gameS);
 
 	SM->SetScene("Splash");
 	
