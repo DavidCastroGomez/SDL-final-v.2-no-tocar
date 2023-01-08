@@ -73,7 +73,9 @@ Frog::Frog()
 
 void Frog::Respawn(Vector2 startPos)
 {
-	AM->PlaySFX("death", 0);
+	if (!dead) {
+		AM->PlaySFX("point", 0);
+	}
 	canMove = true;
 	moving = false;
 	hasFood = false;
@@ -89,43 +91,51 @@ void Frog::AddMovement(Vector2 dir)
 {
 	currentMoveTime += TM->GetDeltaTime();
 
-	switch ((int)dir.x)
-	{
-	case 0:
-		break;
-	case 1:
-		transform.position.x += 128 * TM->GetDeltaTime();
-		rotation = 90;
-		break;
-	case -1:
-		transform.position.x -= 128 * TM->GetDeltaTime();
-		rotation = 270;
-		break;
-	default:
-		break;
+	if (transform.position.x < 0 || transform.position.x > RM->windowWidth || transform.position.y < 0 || transform.position.y > RM->windowHeight - 32) {
+		dead = true;
 	}
-	switch ((int)dir.y)
-	{
-	case 0:
-		break;
-	case 1:
-		transform.position.y += 128 * TM->GetDeltaTime();
-		rotation = 180;
-		if (checkForMovePoint) {
-			currentRow--;
-			checkForMovePoint = false;
+	else {
+
+
+
+		switch ((int)dir.x)
+		{
+		case 0:
+			break;
+		case 1:
+			transform.position.x += 128 * TM->GetDeltaTime();
+			rotation = 90;
+			break;
+		case -1:
+			transform.position.x -= 128 * TM->GetDeltaTime();
+			rotation = 270;
+			break;
+		default:
+			break;
 		}
-		break;
-	case -1:
-		transform.position.y -= 128 * TM->GetDeltaTime();
-		rotation = 0;
-		if (checkForMovePoint) {
-			currentRow++;
-			checkForMovePoint = false;
+		switch ((int)dir.y)
+		{
+		case 0:
+			break;
+		case 1:
+			transform.position.y += 128 * TM->GetDeltaTime();
+			rotation = 180;
+			if (checkForMovePoint) {
+				currentRow--;
+				checkForMovePoint = false;
+			}
+			break;
+		case -1:
+			transform.position.y -= 128 * TM->GetDeltaTime();
+			rotation = 0;
+			if (checkForMovePoint) {
+				currentRow++;
+				checkForMovePoint = false;
+			}
+			break;
+		default:
+			break;
 		}
-		break;
-	default:
-		break;
 	}
 
 	if (currentRow > lastRow)
@@ -134,12 +144,12 @@ void Frog::AddMovement(Vector2 dir)
 		AddScore(10);
 	}
 
-	for (int i = 0; i < CM->GetColliders().size(); i++)
+	/*for (int i = 0; i < CM->GetColliders().size(); i++)
 	{
 		auto temp = CM->GetColliders()[i]->GetBoundingBox();
 		if (GetBoundingBox().CheckOverlappingAABB(&temp))
 			dead = true;
-	}
+	}*/
 
 	if (currentMoveTime > moveTime) {
 		targetDirection = Vector2(0, 0);
@@ -150,6 +160,8 @@ void Frog::AddMovement(Vector2 dir)
 			checkForMovePoint = true;
 		}
 	}
+
+	
 }
 
 bool Frog::isMoving()
@@ -165,9 +177,9 @@ void Frog::AddScore(int score)
 bool Frog::FinishedDeathAnimation()
 {
 	if (dead) {
-		AM->LoadSFX("no lives");
+		AM->PlaySFX("death", 0);
 		animDeathTime += TM->GetDeltaTime();
-		if (animDeathTime > 2) {
+		if (animDeathTime > .5) {
 			return true;
 		}
 	}
