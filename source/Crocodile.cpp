@@ -83,6 +83,7 @@ void Crocodile::Update()
 	}
 	transform.position.x += 40 * TM->GetDeltaTime();
 
+	GetBoundingBox().SetTopLeft(transform.position);
 	renderers[0]->SetPosition(transform.position);
 	renderers[0]->Update();
 

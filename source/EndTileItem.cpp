@@ -61,6 +61,8 @@ void EndTileItem::Update()
 		isFinished = true;
 		spawner->SetCanSpawn(true);
 	}
+
+	GetBoundingBox().SetTopLeft(transform.position);
 	renderers[0]->SetPosition(transform.position);
 	renderers[0]->Update();
 }

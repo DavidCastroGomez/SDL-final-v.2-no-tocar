@@ -12,6 +12,7 @@
 #include "RendererManager.h"
 #include "TextObject.h"
 #include "ScoreManager.h"
+#include "Frog.h"
 class GameplayScene : public Scene
 {
 private:

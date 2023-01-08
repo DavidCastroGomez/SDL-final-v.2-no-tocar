@@ -6,6 +6,9 @@
 #include "InputManager.h"
 #include <cmath>
 #include "SceneManager.h"
+#include "AudioManager.h"
+#include "TextObject.h"
+#include "EventsHandler.h"
 
 class MainMenuScene : public Scene {
 

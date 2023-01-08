@@ -23,7 +23,7 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 	Spawner* lastLogRow = nullptr;
 	for (rapidxml::xml_node<>* pNode = pRoot->first_node("Layout")->first_node(); pNode; pNode = pNode->next_sibling()) {
 		int i = 0;
-		
+
 		switch (ConvertStrToRowType(pNode->name()))
 		{
 		case RowTypes::ENDZONE:
@@ -42,7 +42,7 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 		{
 			Spawner* spawner = new Spawner("log");
 			lastLogRow = spawner;
-			spawner->SetStartPosition(Vector2(-3*16, y*16));
+			spawner->SetStartPosition(Vector2(-3 * 16, y * 16));
 			spawner->SetMinLength(std::stof(pNode->first_attribute("minLength")->value()));
 			spawner->SetMaxLength(std::stof(pNode->first_attribute("maxLength")->value()));
 			for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
@@ -62,15 +62,16 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 			}
 			spawners.push_back(spawner);
 		}
-			break;
+		break;
 		case RowTypes::TURTLESRIVER:
 		{
 			Spawner* spawner = new Spawner("turtle");
-			spawner->SetStartPosition(Vector2(13*16, y*16));
+			spawner->SetStartPosition(Vector2(13 * 16, y * 16));
 			spawner->SetMinLength(std::stof(pNode->first_attribute("minLength")->value()));
 			spawner->SetMaxLength(std::stof(pNode->first_attribute("maxLength")->value()));
 			for (rapidxml::xml_node<>* pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
-				switch (i) {;
+				switch (i) {
+					;
 				case 0:
 					spawner->SetMinSpawnTime(std::stof(pNodeI->first_attribute("min")->value()));
 					spawner->SetMaxSpawnTime(std::stof(pNodeI->first_attribute("max")->value()));
@@ -83,7 +84,7 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 			}
 			spawners.push_back(spawner);
 		}
-				break;
+		break;
 		case RowTypes::ROAD:
 		{
 			Spawner* spawner = new Spawner("car");
@@ -110,15 +111,15 @@ void GameplayScene::LoadLevelFromFile(std::string path)
 					break;
 				}
 				i++;
-			}			
-			
+			}
+
 			spawners.push_back(spawner);
 		}
-			break;
+		break;
 		case RowTypes::SAFEZONE:
 			break;
 		}
-		
+
 		InsertTiles(ConvertStrToRowType(pNode->name()), 11, y);
 
 		y++;
@@ -207,11 +208,16 @@ void GameplayScene::Update()
 		}
 	}
 
+	if (time <= 0) {
+		player->SetDead(true);
+	}
+
 	if (player->FinishedDeathAnimation()) {
 		if (lives > 0) {
-			player->Respawn(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 32));
+			player->Respawn(player->GetInitialPosition());
 			lives--;
-		}			
+			time = 21;
+		}
 		else {
 			//GAme Over
 		}
@@ -230,6 +236,12 @@ void GameplayScene::Update()
 		else if (i == 3) {
 			dynamic_cast<TextObject*>(ui[i])->text->SetText("Time: " + std::to_string((int)time));
 		}
+	}
+
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		if (tiles[i]->GetLethal() && player->boundingBox.CheckOverlappingAABB(&tiles[i]->boundingBox))
+			player->Respawn(player->GetInitialPosition());
 	}
 }
 
@@ -255,11 +267,11 @@ void GameplayScene::OnEnter()
 	time = 21;
 
 	player = new Frog();
-	
+
 	player->SetPosition(Vector2(RM->windowWidth / 2 - 8, RM->windowHeight - 32));
 
 	objects.push_back(player);
-	
+
 	for (int i = 0; i < 5; i++) {
 		endPosition[i] = new bool(false);
 	}
@@ -277,8 +289,16 @@ void GameplayScene::OnEnter()
 
 	TextObject* timeUI = new TextObject("Time: " + std::to_string(time), Vector2(80, RM->windowHeight - 16));
 	ui.push_back(timeUI);
+
+
+	AM->LoadMusic("background");
+	AM->LoadSFX("jump");
+
+	AM->PlayMusic("background");
 }
 
 void GameplayScene::OnExit()
 {
+	AM->UnloadMusic("background");
+	AM->UnloadSFX("jump");
 }
