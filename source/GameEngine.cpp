@@ -13,12 +13,14 @@ void GameEngine::Init() {
 	SplashScreenScreen* splashS = new SplashScreenScreen();
 	MainMenuScene* menuS = new MainMenuScene();
 	GameplayScene* gameS = new GameplayScene();
+	RankingScene* rankS = new RankingScene();
 
 	srand(time(NULL));
 
 	SM->AddScene("Splash", splashS);
 	SM->AddScene("Main Menu", menuS);
 	SM->AddScene("Gameplay", gameS);
+	SM->AddScene("Ranking", rankS);
 
 	SM->SetScene("Splash");
 }

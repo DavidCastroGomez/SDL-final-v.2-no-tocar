@@ -277,8 +277,15 @@ void GameplayScene::OnEnter()
 
 	TextObject* timeUI = new TextObject("Time: " + std::to_string(time), Vector2(80, RM->windowHeight - 16));
 	ui.push_back(timeUI);
+
+	AM->LoadMusic("background");
+	AM->LoadSFX("jump");
+
+	AM->PlayMusic("background");
 }
 
 void GameplayScene::OnExit()
 {
+	AM->UnloadMusic("background");
+	AM->UnloadSFX("jump");
 }

@@ -23,7 +23,7 @@ void MainMenuScene::Update()
 		if (IM->GetMouseX() <= 120 && IM->GetMouseX() >= 50)
 		{
 			if (IM->GetMouseY() <= RM->windowHeight - 102 && IM->GetMouseY() >= RM->windowHeight - 122)
-				SM->SetScene("Gameplay");
+				SM->SetScene("Ranking");
 		}
 		//MUTE
 		if (IM->GetMouseX() <= 120 && IM->GetMouseX() >= 50)

@@ -7,6 +7,7 @@
 #include "SplashSceneScene.h"
 #include "MainMenuScene.h"
 #include "GameplayScene.h"
+#include "RankingScene.h"
 #include "EventsHandler.h"
 #include "AudioManager.h"
 
