@@ -1,5 +1,4 @@
 #include "GameEngine.h"
-#include <random>
 
 GameEngine::GameEngine() {
 	isRunning = true;
@@ -11,13 +10,18 @@ void GameEngine::Init() {
 	TM;
 	RM;
 
+	SplashScreenScreen* splashS = new SplashScreenScreen();
+	MainMenuScene* menuS = new MainMenuScene();
 	GameplayScene* gameS = new GameplayScene();
 
 	srand(time(NULL));
 
+	SM->AddScene("Splash", splashS);
+	SM->AddScene("Main Menu", menuS);
 	SM->AddScene("Game", gameS);
-	SM->SetScene("Game");
 
+	SM->SetScene("Splash");
+	
 	AM->LoadSFX("jump");
 	AM->LoadMusic("background");
 	AM->PlayMusic("background");

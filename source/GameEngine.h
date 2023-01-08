@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <random>
 #include "GameObject.h"
 #include "InputManager.h"
 #include "SceneManager.h"

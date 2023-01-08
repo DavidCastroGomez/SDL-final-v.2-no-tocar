@@ -2,7 +2,8 @@
 
 void SplashScreenScreen::Update()
 {
-	if (IM->CheckKeyState(SDLK_SPACE, PRESSED)) {
+	timer += TM->GetDeltaTime();
+	if (IM->CheckKeyState(SDLK_SPACE, PRESSED) || timer >= 3.0f) {
 		SM->SetScene("Main Menu");
 	}
 }
@@ -13,10 +14,10 @@ void SplashScreenScreen::Render()
 
 void SplashScreenScreen::OnEnter()
 {
-	std::cout << "Hola :D";
+	timer = 0.0f;
 }
 
 void SplashScreenScreen::OnExit()
 {
-	std::cout << "Adios :c";
+	
 }
