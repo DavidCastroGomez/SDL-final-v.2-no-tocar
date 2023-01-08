@@ -1,5 +1,7 @@
 #include "GameplayScene.h"
 
+int GameplayScene::level = 0;
+
 void GameplayScene::LoadLevelFromFile(std::string path)
 {
 	rapidxml::xml_document<> xmlLevel;
@@ -184,67 +186,92 @@ void GameplayScene::InsertTiles(RowTypes type, int numOfTiles = 13, int row = 0)
 
 void GameplayScene::Update()
 {
-	time -= TM->GetDeltaTime();
-
-	for (int i = 0; i < spawners.size(); i++)
+	if (!levelComplete)
 	{
-		std::vector<GameObject*>* spawned = spawners[i]->Update();
-		if (spawned != nullptr) {
-			for (int i = 0; i < spawned->size(); i++) {
-				objects.push_back(spawned->at(i));
+		time -= TM->GetDeltaTime();
+
+		for (int i = 0; i < spawners.size(); i++)
+		{
+			std::vector<GameObject*>* spawned = spawners[i]->Update();
+			if (spawned != nullptr) {
+				for (int i = 0; i < spawned->size(); i++) {
+					objects.push_back(spawned->at(i));
+				}
 			}
 		}
-	}
 
-	for (int i = 0; i < tiles.size(); i++) {
-		tiles[i]->Update();
-	}
-
-	for (int i = 0; i < objects.size(); i++) {
-		objects[i]->Update();
-		if (objects[i]->GetTransform().position.x < -5 * 16 || objects[i]->GetTransform().position.x > 20 * 16 || (dynamic_cast<EndTileItem*>(objects[i]) != nullptr && dynamic_cast<EndTileItem*>(objects[i])->IsFinished())) {
-			delete objects[i];
-			objects.erase(objects.begin() + i);
+		for (int i = 0; i < tiles.size(); i++) {
+			tiles[i]->Update();
 		}
-	}
 
-	player->Update();
+		for (int i = 0; i < objects.size(); i++) {
+			objects[i]->Update();
+			if (objects[i]->GetTransform().position.x < -5 * 16 || objects[i]->GetTransform().position.x > 20 * 16 || (dynamic_cast<EndTileItem*>(objects[i]) != nullptr && dynamic_cast<EndTileItem*>(objects[i])->IsFinished())) {
+				delete objects[i];
+				objects.erase(objects.begin() + i);
+			}
+		}
 
-	if (time <= 0) {
-		player->SetDead(true);
-	}
+		player->Update();
 
-	if (player->FinishedDeathAnimation()) {
-		if (lives > 0) {
+		if (player->transform.position.y <= 16) {
+			PM->AddScore(2 * ((20 - time) * 5));
 			player->Respawn(player->GetInitialPosition());
-			lives--;
-			time = 21;
+			for (int i = 0; i < 5; i++) {
+				if (!endPosition[i]) {
+					endPosition[i] = new bool(true);
+					break;
+				}
+				else if(i == 4) {
+					//Si descomentas esto hay un memory leak, y no sabemos porqué
+					//levelComplete = true;
+				}
+			}
 		}
-		else {
-			SM->SetScene("Main Menu");
+
+		if (time <= 0) {
+			player->SetDead(true);
 		}
+
+		if (player->FinishedDeathAnimation()) {
+			if (lives > 0) {
+				player->Respawn(player->GetInitialPosition());
+				lives--;
+				time = 21;
+			}
+			else {
+				AM->PlaySFX("no lives", 0);
+				SM->SetScene("Main Menu");
+			}
+		}
+
+		score = PM->GetScore();
+
+		for (int i = 0; i < ui.size(); i++) {
+			ui[i]->Update();
+			if (i == 0) {
+				dynamic_cast<TextObject*>(ui[i])->text->SetText("Score: " + std::to_string(score));
+			}
+			else if (i == 2) {
+				dynamic_cast<TextObject*>(ui[i])->text->SetText("Lives: " + std::to_string(lives));
+			}
+			else if (i == 3) {
+				dynamic_cast<TextObject*>(ui[i])->text->SetText("Time: " + std::to_string((int)time));
+			}
+		}
+
+		for (int i = 0; i < tiles.size(); i++)
+		{
+			if (tiles[i]->GetLethal() && player->boundingBox.CheckOverlappingAABB(&tiles[i]->boundingBox))
+				player->Respawn(player->GetInitialPosition());
+		}
+
+		
+	}
+	else {
+		LoadLevelFromFile("./resources/level" + std::to_string(level) + ".xml");
 	}
 
-	score = PM->GetScore();
-
-	for (int i = 0; i < ui.size(); i++) {
-		ui[i]->Update();
-		if (i == 0) {
-			dynamic_cast<TextObject*>(ui[i])->text->SetText("Score: " + std::to_string(score));
-		}
-		else if (i == 2) {
-			dynamic_cast<TextObject*>(ui[i])->text->SetText("Lives: " + std::to_string(lives));
-		}
-		else if (i == 3) {
-			dynamic_cast<TextObject*>(ui[i])->text->SetText("Time: " + std::to_string((int)time));
-		}
-	}
-
-	for (int i = 0; i < tiles.size(); i++)
-	{
-		if (tiles[i]->GetLethal() && player->boundingBox.CheckOverlappingAABB(&tiles[i]->boundingBox))
-			player->Respawn(player->GetInitialPosition());
-	}
 }
 
 void GameplayScene::Render()
@@ -269,6 +296,7 @@ void GameplayScene::OnEnter()
 	lives = 4;
 	score = 0;
 	time = 21;
+	levelComplete = false;
 
 	player = new Frog();
 
@@ -280,7 +308,7 @@ void GameplayScene::OnEnter()
 		endPosition[i] = new bool(false);
 	}
 
-	LoadLevelFromFile("./resources/level.xml");
+	LoadLevelFromFile("./resources/level" + std::to_string(level) + ".xml");
 
 	TextObject* scoreUI = new TextObject("Score: " + std::to_string(score), Vector2(0, 0));
 	ui.push_back(scoreUI);

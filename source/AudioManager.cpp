@@ -17,7 +17,7 @@ AudioManager* AudioManager::GetInstance() {
 void AudioManager::LoadSFX(std::string name) {
 	assert(sfx.find(name) == sfx.end());
 
-	Mix_Chunk* loadedChunk = Mix_LoadWAV(("resources/audio/sfx/" + name + ".wav").c_str());
+	Mix_Chunk* loadedChunk = Mix_LoadWAV(("./resources/audio/sfx/" + name + ".wav").c_str());
 
 	assert(loadedChunk != nullptr);
 
@@ -40,7 +40,7 @@ void AudioManager::PlaySFX(std::string name, int repetitions) {
 void AudioManager::LoadMusic(std::string name) {
 	assert(music.find(name) == music.end());
 
-	Mix_Music* loadedMusic = Mix_LoadMUS(("resources/audio/music/" + name + ".wav").c_str());
+	Mix_Music* loadedMusic = Mix_LoadMUS(("./resources/audio/music/" + name + ".wav").c_str());
 
 	assert(loadedMusic != nullptr);
 
