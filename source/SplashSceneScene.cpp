@@ -26,10 +26,10 @@ void SplashScreenScreen::OnEnter()
 
 	SDL_Rect* target = new SDL_Rect();
 
-	target->x = 0;
-	target->y = 0;
-	target->w = 255;
-	target->h = 255;
+	target->x = 35;
+	target->y = 50;
+	target->w = 225/2;
+	target->h = 225/2;
 
 	SDL_Color color = { 255, 255, 255 };
 
